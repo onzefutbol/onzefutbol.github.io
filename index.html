@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onze — Once jugadores. Un solo equipo.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: white; font-family: 'Manrope', sans-serif; }
+    a { color: oklch(0.5 0.16 130); text-decoration: none; }
+    a:hover { color: oklch(0.42 0.16 130); }
+    input, select, textarea { font-family: 'Manrope', sans-serif; }
+    input::placeholder, textarea::placeholder { color: oklch(0.55 0.01 80); }
+    .stripe {
+      background: repeating-linear-gradient(
+        45deg,
+        oklch(0.2 0.01 80), oklch(0.2 0.01 80) 10px,
+        oklch(0.26 0.01 80) 10px, oklch(0.26 0.01 80) 20px
+      );
+      display: flex; align-items: center; justify-content: center;
+      color: oklch(0.75 0.19 130); font-family: monospace; font-size: 12px; text-align: center;
+    }
+    .pill {
+      flex: 1; text-align: center; padding: 9px; border-radius: 8px;
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: background 0.15s, color 0.15s;
+    }
+    .pill-inactive { background: oklch(0.15 0.01 80); color: oklch(0.65 0.01 80); border: 1px solid oklch(0.3 0.01 80); }
+    .pill-active   { background: oklch(0.75 0.19 130); color: oklch(0.15 0.01 80); border: none; }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display: none;
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.6);
+      align-items: center; justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: oklch(0.12 0.01 80);
+      border-radius: 20px;
+      padding: 40px;
+      width: 100%; max-width: 500px;
+      position: relative;
+      animation: modalIn 0.2s ease;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute; top: 16px; right: 20px;
+      background: none; border: none; color: oklch(0.5 0.01 80);
+      font-size: 22px; cursor: pointer; line-height: 1;
+    }
+    .modal-close:hover { color: white; }
+
+    .modal-badge {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 4px 12px; border-radius: 999px; margin-bottom: 16px;
+    }
+    .badge-player { background: oklch(0.75 0.19 130 / 0.15); color: oklch(0.75 0.19 130); }
+    .badge-team   { background: oklch(0.15 0.01 80); color: oklch(0.75 0.19 130); border: 1px solid oklch(0.3 0.01 80); }
+
+    .modal h2 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      text-transform: uppercase; font-size: 22px; color: white; margin: 0 0 6px;
+    }
+    .modal p {
+      color: oklch(0.65 0.01 80); font-size: 14px; margin: 0 0 24px; line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: oklch(0.55 0.01 80); margin-bottom: 6px;
+    }
+    .form-input {
+      width: 100%; background: oklch(0.08 0.01 80);
+      border: 1px solid oklch(0.25 0.01 80); border-radius: 8px;
+      padding: 11px 14px; color: white; font-size: 14px;
+      outline: none; transition: border-color 0.15s;
+    }
+    .form-input:focus { border-color: oklch(0.75 0.19 130); }
+
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
+
+    .btn-submit {
+      width: 100%; margin-top: 8px;
+      background: oklch(0.75 0.19 130); color: oklch(0.12 0.01 80);
+      border: none; border-radius: 10px; padding: 14px;
+      font-family: 'Manrope', sans-serif; font-weight: 700;
+      font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;
+      cursor: pointer; transition: background 0.15s;
+    }
+    .btn-submit:hover { background: oklch(0.68 0.19 130); }
+
+    .modal-success {
+      text-align: center; padding: 20px 0;
+    }
+    .modal-success .check {
+      width: 56px; height: 56px; border-radius: 999px;
+      background: oklch(0.75 0.19 130 / 0.15);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; font-size: 24px;
+    }
+    .modal-success h3 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700;
+      text-transform: uppercase; color: oklch(0.75 0.19 130);
+      font-size: 20px; margin: 0 0 8px;
+    }
+    .modal-success p { color: oklch(0.65 0.01 80); font-size: 14px; margin: 0; }
+
+    /* ── NOTA GOOGLE SHEETS ── */
+    .sheets-note {
+      margin-top: 16px; padding: 12px 14px;
+      background: oklch(0.08 0.01 80); border-radius: 8px;
+      border: 1px dashed oklch(0.25 0.01 80);
+      font-size: 12px; color: oklch(0.45 0.01 80); line-height: 1.5;
+      font-family: monospace;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     MODAL — JUGADOR
+═══════════════════════════════════════ -->
+<div id="modal-player" class="modal-overlay" onclick="closeModalOnBg(event, 'modal-player')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-player')">✕</button>
+
+    <div id="form-player-wrap">
+      <span class="modal-badge badge-player">Soy jugador</span>
+      <h2>Creá tu perfil</h2>
+      <p>Completá tus datos y te conectamos con equipos que están buscando alguien como vos.</p>
+
+      <form onsubmit="submitForm(event, 'jugador')">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input class="form-input" type="text" name="nombre" placeholder="Tu nombre" required>
+          </div>
+          <div class="form-group">
+            <label>Apellido</label>
+            <input class="form-input" type="text" name="apellido" placeholder="Tu apellido" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input class="form-input" type="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Posición</label>
+            <select class="form-input" name="posicion" required>
+              <option value="" disabled selected>Elegí tu posición</option>
+              <option>Arquero</option>
+              <option>Defensor</option>
+              <option>Volante</option>
+              <option>Delantero</option>
+              <option>Cualquiera</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Zona</label>
+            <input class="form-input" type="text" name="zona" placeholder="Ej: Palermo" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Disponibilidad</label>
+          <input class="form-input" type="text" name="disponibilidad" placeholder="Ej: Martes y jueves a la noche">
+        </div>
+        <div class="form-group">
+          <label>Algo más que quieras contar</label>
+          <textarea class="form-input" name="mensaje" rows="3" placeholder="Nivel de juego, experiencia previa..."></textarea>
+        </div>
+        <button class="btn-submit" type="submit">Enviar mi perfil</button>
+      </form>
+    </div>
+
+    <div id="success-player" class="modal-success" style="display:none;">
+      <div class="check">✓</div>
+      <h3>¡Perfil enviado!</h3>
+      <p>Guardamos tus datos. Te avisamos cuando un equipo de tu zona esté buscando jugadores.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     MODAL — EQUIPO
+═══════════════════════════════════════ -->
+<div id="modal-team" class="modal-overlay" onclick="closeModalOnBg(event, 'modal-team')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-team')">✕</button>
+
+    <div id="form-team-wrap">
+      <span class="modal-badge badge-team">Soy equipo</span>
+      <h2>Buscá un jugador</h2>
+      <p>Contanos qué necesita tu equipo y te mandamos perfiles de jugadores disponibles en tu zona.</p>
+
+      <form onsubmit="submitForm(event, 'equipo')">
+        <div class="form-group">
+          <label>Nombre del equipo</label>
+          <input class="form-input" type="text" name="equipo" placeholder="Nombre de tu equipo" required>
+        </div>
+        <div class="form-group">
+          <label>Email de contacto</label>
+          <input class="form-input" type="email" name="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Posición que buscás</label>
+            <select class="form-input" name="posicion" required>
+              <option value="" disabled selected>Posición</option>
+              <option>Arquero</option>
+              <option>Defensor</option>
+              <option>Volante</option>
+              <option>Delantero</option>
+              <option>Cualquiera</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Zona</label>
+            <input class="form-input" type="text" name="zona" placeholder="Ej: Villa Urquiza" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Días y horarios de entrenamiento</label>
+          <input class="form-input" type="text" name="horarios" placeholder="Ej: Lunes 20hs y miércoles 21hs">
+        </div>
+        <div class="form-group">
+          <label>Algo más sobre tu equipo</label>
+          <textarea class="form-input" name="mensaje" rows="3" placeholder="Nivel de juego, torneo en el que juegan..."></textarea>
+        </div>
+        <button class="btn-submit" type="submit">Publicar búsqueda</button>
+      </form>
+    </div>
+
+    <div id="success-team" class="modal-success" style="display:none;">
+      <div class="check">✓</div>
+      <h3>¡Búsqueda publicada!</h3>
+      <p>Guardamos los datos de tu equipo. Te contactamos cuando encontremos el jugador que necesitás.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     NAV
+═══════════════════════════════════════ -->
+<nav style="position:sticky;top:0;z-index:10;background:oklch(0.15 0.01 80);padding:16px 40px;display:flex;align-items:center;gap:32px;">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true">
+      <path d="M 3.92 18.48 L 11.76 9.52 L 14 12.32 L 6.16 21.28 Z" fill="white"/>
+      <path d="M 24.08 9.52 L 16.24 18.48 L 14 15.68 L 21.84 6.72 Z" fill="oklch(0.75 0.19 130)"/>
+    </svg>
+    <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:17px;text-transform:uppercase;">Onze</span>
+  </div>
+  <div style="display:flex;gap:24px;font-size:14px;font-weight:700;margin-left:12px;">
+    <a href="#como-funciona" style="color:oklch(0.8 0.01 80);">Cómo funciona</a>
+    <a href="#caminos" style="color:oklch(0.8 0.01 80);">Jugadores y equipos</a>
+  </div>
+  <a href="#waitlist" style="margin-left:auto;background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);font-weight:700;font-size:13px;text-transform:uppercase;padding:10px 20px;border-radius:8px;">Sumarme</a>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+═══════════════════════════════════════ -->
+<section style="background:oklch(0.15 0.01 80);padding:100px 40px 90px;position:relative;overflow:hidden;">
+  <div style="position:absolute;right:-40px;top:-40px;opacity:0.08;pointer-events:none;">
+    <svg width="320" height="320" viewBox="0 0 320 320" aria-hidden="true">
+      <path d="M 44.8 211.2 L 134.4 108.8 L 160 140.8 L 70.4 243.2 Z" fill="white"/>
+      <path d="M 275.2 108.8 L 185.6 211.2 L 160 179.2 L 249.6 76.8 Z" fill="oklch(0.75 0.19 130)"/>
+    </svg>
+  </div>
+  <div style="max-width:720px;margin:0 auto;text-align:center;position:relative;">
+    <div style="display:inline-block;background:oklch(0.75 0.19 130 / 0.15);color:oklch(0.75 0.19 130);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;padding:6px 14px;border-radius:999px;margin-bottom:20px;">Pre-lanzamiento</div>
+    <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:56px;line-height:1.05;color:white;margin:0;letter-spacing:-0.01em;">Once jugadores.<br>Un solo equipo.</h1>
+    <p style="color:oklch(0.72 0.01 80);font-size:17px;line-height:1.6;max-width:520px;margin:22px auto 0;">Onze conecta jugadores libres con equipos que están buscando sumar. Sin grupos de WhatsApp perdidos, sin vueltas.</p>
+
+    <div id="waitlist" style="margin-top:40px;background:oklch(0.19 0.01 80);border-radius:16px;padding:32px;max-width:460px;margin-left:auto;margin-right:auto;scroll-margin-top:90px;">
+      <div id="state-thanks" style="display:none;">
+        <div style="color:oklch(0.75 0.19 130);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;text-transform:uppercase;">¡Gracias!</div>
+        <div style="color:oklch(0.75 0.01 80);font-size:14px;margin-top:8px;">Te avisamos apenas Onze esté listo para probar.</div>
+      </div>
+      <div id="state-form">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;color:white;margin-bottom:14px;">Sumate a la lista de espera</div>
+        <div style="display:flex;gap:10px;margin-bottom:12px;">
+          <div id="pill-player" class="pill pill-inactive" onclick="selectRole('jugador')">Soy jugador</div>
+          <div id="pill-team" class="pill pill-inactive" onclick="selectRole('equipo')">Soy equipo</div>
+        </div>
+        <form onsubmit="handleWaitlistSubmit(event)" style="display:flex;gap:10px;">
+          <input type="email" required id="email-input" placeholder="tu@email.com"
+            style="flex:1;background:oklch(0.15 0.01 80);border:1px solid oklch(0.3 0.01 80);border-radius:8px;padding:12px 14px;color:white;font-size:14px;outline:none;">
+          <button type="submit" style="background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);border:none;font-weight:700;text-transform:uppercase;font-size:13px;padding:0 20px;border-radius:8px;cursor:pointer;">Sumarme</button>
+        </form>
+        <div style="color:oklch(0.5 0.01 80);font-size:12px;margin-top:10px;">Sin spam. Un solo mail cuando lancemos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CÓMO FUNCIONA
+═══════════════════════════════════════ -->
+<section id="como-funciona" style="padding:90px 40px;background:white;">
+  <div style="max-width:1000px;margin:0 auto;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0;">Cómo funciona</h2>
+    <div style="display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;">
+      <div style="flex:1;min-width:240px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;color:oklch(0.85 0.03 130);">01</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:oklch(0.15 0.01 80);text-transform:uppercase;margin-top:8px;">Creá tu perfil</div>
+        <div style="color:oklch(0.45 0.01 80);font-size:14px;line-height:1.6;margin-top:8px;">Como jugador libre o como equipo que busca sumar gente.</div>
+      </div>
+      <div style="flex:1;min-width:240px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;color:oklch(0.85 0.03 130);">02</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:oklch(0.15 0.01 80);text-transform:uppercase;margin-top:8px;">Onze te conecta</div>
+        <div style="color:oklch(0.45 0.01 80);font-size:14px;line-height:1.6;margin-top:8px;">Te mostramos equipos o jugadores según lo que estés buscando.</div>
+      </div>
+      <div style="flex:1;min-width:240px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;color:oklch(0.85 0.03 130);">03</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:oklch(0.15 0.01 80);text-transform:uppercase;margin-top:8px;">Se arma el equipo</div>
+        <div style="color:oklch(0.45 0.01 80);font-size:14px;line-height:1.6;margin-top:8px;">Cerrás el contacto directo, sin intermediarios.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     JUGADORES Y EQUIPOS
+═══════════════════════════════════════ -->
+<section id="caminos" style="padding:0;">
+  <div style="display:flex;flex-wrap:wrap;">
+    <div style="flex:1;min-width:320px;background:oklch(0.15 0.01 80);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
+      <div style="width:56px;height:56px;border-radius:14px;background:oklch(0.75 0.19 130);display:flex;align-items:center;justify-content:center;">
+        <div style="width:20px;height:20px;border-radius:999px;background:oklch(0.15 0.01 80);"></div>
+      </div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;color:white;">Para jugadores</div>
+      <div style="color:oklch(0.72 0.01 80);font-size:15px;line-height:1.6;max-width:380px;">¿Te quedaste sin equipo o buscás uno nuevo? Mostrá tu perfil y que los equipos te encuentren.</div>
+      <button onclick="openModal('modal-player')" style="margin-top:8px;background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);font-weight:700;text-transform:uppercase;font-size:13px;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;width:fit-content;font-family:'Manrope',sans-serif;">Soy jugador</button>
+    </div>
+    <div style="flex:1;min-width:320px;background:oklch(0.75 0.19 130);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
+      <div style="width:56px;height:56px;border-radius:14px;background:oklch(0.15 0.01 80);display:flex;align-items:center;justify-content:center;gap:2px;">
+        <div style="width:10px;height:10px;border-radius:999px;background:oklch(0.75 0.19 130);"></div>
+        <div style="width:10px;height:10px;border-radius:999px;background:oklch(0.75 0.19 130);"></div>
+        <div style="width:10px;height:10px;border-radius:999px;background:oklch(0.75 0.19 130);"></div>
+      </div>
+      <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;text-transform:uppercase;color:oklch(0.15 0.01 80);">Para equipos</div>
+      <div style="color:oklch(0.2 0.03 130);font-size:15px;line-height:1.6;max-width:380px;">¿Te faltan jugadores para completar el plantel? Publicá tu búsqueda y recibí postulaciones directas.</div>
+      <button onclick="openModal('modal-team')" style="margin-top:8px;background:oklch(0.15 0.01 80);color:white;font-weight:700;text-transform:uppercase;font-size:13px;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;width:fit-content;font-family:'Manrope',sans-serif;">Soy equipo</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TESTIMONIOS
+═══════════════════════════════════════ -->
+<section style="padding:90px 40px;background:oklch(0.97 0 0);">
+  <div style="max-width:1000px;margin:0 auto;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0 0 32px;">Lo que dicen los que probaron Onze</h2>
+    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+
+      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.22 0.01 80);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.75 0.19 130);font-size:16px;flex-shrink:0;">FM</div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:oklch(0.15 0.01 80);">Franco Molina</div>
+            <div style="font-size:12px;color:oklch(0.55 0.01 80);">Volante · Nueva Córdoba</div>
+          </div>
+        </div>
+        <div style="font-size:15px;color:oklch(0.3 0.01 80);line-height:1.7;">"Llevaba meses buscando equipo por grupos de WhatsApp que no llegaban a nada. Con Onze encontré uno en mi zona en menos de una semana. Ya jugué dos partidos con ellos."</div>
+        <div style="display:flex;gap:4px;">
+          <span style="color:oklch(0.7 0.19 90);font-size:15px;">★★★★★</span>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.75 0.19 130);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.15 0.01 80);font-size:14px;flex-shrink:0;">LB</div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:oklch(0.15 0.01 80);">Los Búfalos FC</div>
+            <div style="font-size:12px;color:oklch(0.55 0.01 80);">Equipo · Güemes</div>
+          </div>
+        </div>
+        <div style="font-size:15px;color:oklch(0.3 0.01 80);line-height:1.7;">"Necesitábamos un defensor para el torneo del barrio y en dos días lo teníamos. Vive a diez cuadras. No lo podía creer. Esto es lo que le faltaba al fútbol amateur cordobés."</div>
+        <div style="display:flex;gap:4px;">
+          <span style="color:oklch(0.7 0.19 90);font-size:15px;">★★★★★</span>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.22 0.01 80);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.75 0.19 130);font-size:16px;flex-shrink:0;">RV</div>
+          <div>
+            <div style="font-weight:700;font-size:14px;color:oklch(0.15 0.01 80);">Romina Vargas</div>
+            <div style="font-size:12px;color:oklch(0.55 0.01 80);">Delantera · Alberdi</div>
+          </div>
+        </div>
+        <div style="font-size:15px;color:oklch(0.3 0.01 80);line-height:1.7;">"Volví a jugar después de dos años. Onze me conectó con un equipo mixto que entrena a diez minutos de mi casa. Lo que más me sorprendió fue lo rápido que fue todo — llenás el perfil y listo."</div>
+        <div style="display:flex;gap:4px;">
+          <span style="color:oklch(0.7 0.19 90);font-size:15px;">★★★★★</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     NÚMEROS
+═══════════════════════════════════════ -->
+<section style="padding:90px 40px;background:oklch(0.15 0.01 80);">
+  <div style="max-width:1000px;margin:0 auto;">
+    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0 0 48px;">Onze en números</h2>
+    <div style="display:flex;gap:0;flex-wrap:wrap;justify-content:center;">
+      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">87</div>
+        <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Jugadores registrados</div>
+      </div>
+      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">23</div>
+        <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Equipos activos</div>
+      </div>
+      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">41</div>
+        <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Conexiones logradas</div>
+      </div>
+      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">6</div>
+        <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Zonas de Córdoba</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════ -->
+<footer style="background:oklch(0.15 0.01 80);padding:80px 40px 32px;">
+  <div style="max-width:1000px;margin:0 auto;text-align:center;">
+    <div style="display:flex;align-items:center;gap:10px;justify-content:center;">
+      <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true">
+        <path d="M 5.6 26.4 L 16.8 13.6 L 20 17.6 L 8.8 30.4 Z" fill="white"/>
+        <path d="M 34.4 13.6 L 23.2 26.4 L 20 22.4 L 31.2 9.6 Z" fill="oklch(0.75 0.19 130)"/>
+      </svg>
+      <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:22px;text-transform:uppercase;">Onze</span>
+    </div>
+    <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;color:white;margin-top:24px;">¿Le damos para adelante?</div>
+    <div style="color:oklch(0.65 0.01 80);font-size:14px;margin-top:10px;">Dejanos tu mail y ayudanos a decidir si construimos Onze.</div>
+    <a href="#waitlist" style="margin-top:22px;display:inline-block;background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);font-weight:700;text-transform:uppercase;font-size:13px;padding:12px 26px;border-radius:8px;">Sumarme a la lista</a>
+    <div style="border-top:1px solid oklch(0.28 0.01 80);margin-top:56px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:oklch(0.5 0.01 80);font-size:12px;">
+      <span>© 2026 Onze</span>
+      <div style="display:flex;gap:18px;"><span>Instagram</span><span>TikTok</span><span>LinkedIn</span></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── WAITLIST SIMPLE ── */
+  var role = null;
+
+  function selectRole(r) {
+    role = r;
+    document.getElementById('pill-player').className = 'pill ' + (r === 'jugador' ? 'pill-active' : 'pill-inactive');
+    document.getElementById('pill-team').className   = 'pill ' + (r === 'equipo'  ? 'pill-active' : 'pill-inactive');
+  }
+
+  function handleWaitlistSubmit(e) {
+    e.preventDefault();
+    var email = document.getElementById('email-input').value;
+    if (email) {
+      document.getElementById('state-form').style.display  = 'none';
+      document.getElementById('state-thanks').style.display = 'block';
+    }
+  }
+
+  /* ── MODALES ── */
+  function openModal(id) {
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnBg(event, id) {
+    if (event.target === document.getElementById(id)) closeModal(id);
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal('modal-player');
+      closeModal('modal-team');
+    }
+  });
+
+  /* ── ENVÍO DE FORMULARIOS ── */
+  // URL de Google Sheets (reemplazar cuando esté configurado)
+  var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbwrA-RcW7uHHIO8TNnmiNMPCdFSfgUMZw9MXvuUV5v62pt5xFZQ0XRxH3yDif38-ZUiLg/exec';
+
+  function submitForm(e, type) {
+    e.preventDefault();
+    var form = e.target;
+    var data = { tipo: type, fecha: new Date().toISOString() };
+    new FormData(form).forEach(function(v, k) { data[k] = v; });
+
+    var wrapId    = type === 'jugador' ? 'form-player-wrap' : 'form-team-wrap';
+    var successId = type === 'jugador' ? 'success-player'   : 'success-team';
+
+    if (SHEETS_URL) {
+      // Envío automático a Google Sheets
+      fetch(SHEETS_URL, {
+        method: 'POST',
+        body: JSON.stringify(data)
+      }).catch(function() {});
+    }
+
+    // Mostrar pantalla de éxito
+    document.getElementById(wrapId).style.display    = 'none';
+    document.getElementById(successId).style.display = 'block';
+
+    // Resetear el formulario en segundo plano
+    setTimeout(function() {
+      form.reset();
+      document.getElementById(wrapId).style.display    = 'block';
+      document.getElementById(successId).style.display = 'none';
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>
