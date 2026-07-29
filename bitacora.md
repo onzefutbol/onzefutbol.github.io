@@ -261,3 +261,11 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** el modal ocupaba casi toda la pantalla y forzaba a scroll dentro de una overlay incómoda; achicándolo se ve más liviano y profesional. La ausencia de un botón explícito de cancelar dejaba solamente la ✕ chica de la esquina, que muchos usuarios no ven — un botón "Cancelar" al lado del submit reduce la ansiedad de "estoy comprometido a enviar esto".
 
 ---
+
+## [2026-07-29] Links reales de redes sociales en el footer
+
+**Qué hice:** reemplacé los `<span>` estáticos del footer por `<a>` reales apuntando a Instagram (`https://www.instagram.com/onze_arg/`) y TikTok (`https://www.tiktok.com/@onzearg`). Ambos abren en pestaña nueva (`target="_blank" rel="noopener"`). Saqué el link de LinkedIn porque todavía no hay cuenta.
+
+**Por qué:** ya existen las cuentas oficiales `@onze_arg` (IG) y `@onzearg` (TikTok), así que el footer ahora es funcional en vez de decorativo. Menos ítems y todos operativos = mejor UX y menos ruido.
+
+---
