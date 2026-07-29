@@ -349,3 +349,15 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** en pantallas de celular el modal ocupaba casi toda la altura y quedaba con scroll interno, y encima al terminar el flujo se re-mostraba el formulario vacío por 4 seg más — el usuario no entendía qué estaba pasando. El auto-cierre es más natural: enviaste, viste el "listo", el modal se va, seguís navegando la landing. Corta la fricción y no te "traba" con un formulario que reaparece.
 
 ---
+
+## [2026-07-29] Fix auto-zoom en iOS + comportamiento con teclado
+
+**Qué hice:**
+
+- **Fix iOS auto-zoom:** todos los `input`, `select` y `textarea` dentro del modal ahora usan `font-size: 16px !important` en mobile. iOS Safari hace zoom automático cuando un input tiene menos de 16px al enfocarlo — ese era el "pellizco" que necesitaba hacer el usuario. Compensé con padding un toque más chico para que no crezca el modal en total.
+- **Viewport dinámico (dvh):** cambié `max-height: calc(100vh - 40px)` a `100dvh`. La unidad `dvh` sí achica cuando aparece el teclado del celu; `vh` no lo hace y por eso los botones "Enviar/Cancelar" quedaban debajo del teclado sin poder llegar a ellos.
+- **`overscroll-behavior: contain`** y `-webkit-overflow-scrolling: touch` en el modal: cuando scrolleás dentro del modal y llegás al tope/fondo, no se propaga el scroll a la landing de atrás (que era otra causa del "se traba").
+
+**Por qué:** el reporte del usuario ("necesito pellizcar y hace trabar la página") es el patrón textual del bug de auto-zoom + falta de dvh en iOS. Con estas 3 líneas queda 100% usable en cualquier celular moderno sin gestos manuales.
+
+---
