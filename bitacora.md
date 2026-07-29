@@ -317,3 +317,19 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** las reglas anteriores eran parches específicos que dejaban muchos casos sin cubrir (tablet, botón grande del nav apretado en mobile, testimonios con `min-width:260px` que no bajaban, números en 4 columnas horrorosas en 400px). Este bloque es un sistema completo y consistente, más fácil de mantener.
 
 ---
+
+## [2026-07-29] Fix desalineamiento formularios ↔ Google Sheet
+
+**Qué hice (parte landing):**
+
+- Renombré el campo `disponibilidad` (jugador) y `horarios` (equipo) a un único nombre común `horario`, que matchea la columna del sheet.
+
+**Qué queda pendiente (acción manual del usuario en Google Sheet + Apps Script):**
+
+1. Agregar 3 columnas nuevas al sheet: `TIPO_FUTBOL`, `CATEGORIA`, `MODALIDAD`.
+2. Reemplazar el código del Apps Script por una versión que mapea por nombre de columna (no por orden), lo que elimina el desalineamiento estructural.
+3. Redesplegar como "New version" del deployment existente (mantiene la URL, no hay que tocar la landing).
+
+**Por qué:** el problema raíz era que el `doPost` viejo apilaba los valores en orden fijo, entonces cuando la forma del payload cambiaba (más campos, distinto orden), todo se corría. El nuevo lee los headers y mapea por nombre → cualquier campo del payload cae en la columna correcta sin importar el orden. Beneficio adicional: en el futuro se puede agregar/reordenar columnas del sheet sin tocar el script ni la landing.
+
+---
