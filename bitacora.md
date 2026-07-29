@@ -269,3 +269,13 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** ya existen las cuentas oficiales `@onze_arg` (IG) y `@onzearg` (TikTok), así que el footer ahora es funcional en vez de decorativo. Menos ítems y todos operativos = mejor UX y menos ruido.
 
 ---
+
+## [2026-07-29] Google Analytics 4 integrado
+
+**Qué hice:** agregué el snippet de GA4 (`gtag.js`) en el `<head>` del `index.html`, con el ID de medición `G-VZQWKQTS0B`. Creé la propiedad "Onze Landing" en Google Analytics con zona horaria Argentina y moneda ARS, y configuré el flujo de datos web apuntando a `https://onzefutbol.github.io`.
+
+**Por qué:** hasta ahora sabíamos cuánta gente completaba el formulario (por el sheet), pero no cuánta *entraba* a la landing sin registrarse. GA4 nos da esa base para medir tasa de conversión real (visitas → registros), fuente de tráfico (Instagram, TikTok, directo), dispositivo, ubicación, y comportamiento. Es la primera pieza de analítica seria del proyecto.
+
+**Cómo verificar:** entrar a analytics.google.com → Informes → En tiempo real → abrir onzefutbol.github.io en otra pestaña → tiene que aparecer 1 usuario activo.
+
+---
