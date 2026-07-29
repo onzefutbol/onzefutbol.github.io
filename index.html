@@ -18,8 +18,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
+    html, body { overflow-x: hidden; width: 100%; max-width: 100%; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; background: white; font-family: 'Manrope', sans-serif; }
+    body { background: white; font-family: 'Manrope', sans-serif; }
+    section, footer, nav { width: 100%; max-width: 100%; }
     a { color: oklch(0.5 0.16 130); text-decoration: none; }
     a:hover { color: oklch(0.42 0.16 130); }
     input, select, textarea { font-family: 'Manrope', sans-serif; }
@@ -155,6 +157,72 @@
       border: 1px dashed oklch(0.25 0.01 80);
       font-size: 12px; color: oklch(0.45 0.01 80); line-height: 1.5;
       font-family: monospace;
+    }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE — 3 breakpoints
+       ═════════════════════════════════════ */
+
+    /* ── TABLET Y MOBILE (< 1024px) ── */
+    @media (max-width: 1024px) {
+      section, footer { padding-left: 32px !important; padding-right: 32px !important; }
+      .hero { padding-top: 80px !important; padding-bottom: 72px !important; }
+      .hero h1 { font-size: 48px !important; }
+    }
+
+    /* ── TABLET (641px - 1024px) ── */
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .match-card { flex: 1 1 calc(50% - 10px) !important; max-width: none !important; }
+      .caminos-card { flex: 1 1 100% !important; min-width: 0 !important; }
+      .testi-card { flex: 1 1 calc(50% - 12px) !important; min-width: 0 !important; }
+    }
+
+    /* ── MOBILE (< 640px) ── */
+    @media (max-width: 640px) {
+      /* Nav */
+      nav { padding: 12px 16px !important; gap: 12px !important; }
+      .nav-links { display: none !important; }
+      nav a[href="#suscribite"] { padding: 8px 14px !important; font-size: 12px !important; }
+
+      /* Secciones */
+      section, footer { padding-left: 16px !important; padding-right: 16px !important; }
+
+      /* Hero */
+      .hero { padding-top: 56px !important; padding-bottom: 56px !important; }
+      .hero h1 { font-size: 34px !important; letter-spacing: -0.02em !important; }
+      .hero p { font-size: 15px !important; }
+
+      /* Match cards — 2 por fila en mobile */
+      .match-card { flex: 1 1 calc(50% - 8px) !important; min-width: 0 !important; max-width: none !important; padding: 18px 14px !important; }
+      .match-card .card-num { font-size: 40px !important; }
+
+      /* Cómo funciona — apilado */
+      .cf-grid > div { flex: 1 1 100% !important; min-width: 0 !important; }
+      .cf-grid { gap: 24px !important; }
+
+      /* Caminos — apilado */
+      .caminos-card { flex: 1 1 100% !important; min-width: 0 !important; padding: 56px 20px !important; }
+
+      /* Testimonios — apilado */
+      .testi-card { flex: 1 1 100% !important; min-width: 0 !important; padding: 24px !important; }
+      .testi-grid { gap: 16px !important; }
+
+      /* Números — 2x2 en mobile */
+      .num-cell { flex: 1 1 calc(50% - 1px) !important; min-width: 0 !important; padding: 24px 12px !important; border-right: none !important; border-bottom: 1px solid oklch(0.25 0.01 80) !important; }
+      .num-cell:nth-child(odd) { border-right: 1px solid oklch(0.25 0.01 80) !important; }
+      .num-cell:nth-last-child(-n+2) { border-bottom: none !important; }
+      .num-cell .num-big { font-size: 42px !important; }
+
+      /* Footer */
+      footer { padding-top: 56px !important; padding-bottom: 24px !important; }
+      .footer-title { font-size: 22px !important; }
+      .newsletter-form { flex-direction: column !important; }
+      .newsletter-form button { padding: 12px !important; }
+
+      /* Modales — más chicos en mobile */
+      .modal { padding: 20px !important; max-height: calc(100vh - 20px) !important; }
+      .modal-overlay { padding: 10px !important; }
+      .form-row { flex-direction: column !important; gap: 0 !important; }
     }
 
   </style>
@@ -377,7 +445,7 @@
     </svg>
     <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:17px;text-transform:uppercase;">Onze</span>
   </a>
-  <div style="display:flex;gap:24px;font-size:14px;font-weight:700;margin-left:12px;">
+  <div class="nav-links" style="display:flex;gap:24px;font-size:14px;font-weight:700;margin-left:12px;">
     <a href="#como-funciona" style="color:oklch(0.8 0.01 80);">Cómo funciona</a>
     <a href="#caminos" style="color:oklch(0.8 0.01 80);">Jugadores y equipos</a>
   </div>
@@ -387,7 +455,7 @@
 <!-- ══════════════════════════════════════
      HERO
 ═══════════════════════════════════════ -->
-<section style="background:oklch(0.15 0.01 80);padding:100px 40px 90px;position:relative;overflow:hidden;">
+<section class="hero" style="background:oklch(0.15 0.01 80);padding:100px 40px 90px;position:relative;overflow:hidden;">
   <div style="position:absolute;right:-40px;top:-40px;opacity:0.08;pointer-events:none;">
     <svg width="320" height="320" viewBox="0 0 320 320" aria-hidden="true">
       <path d="M 44.8 211.2 L 134.4 108.8 L 160 140.8 L 70.4 243.2 Z" fill="white"/>
@@ -404,25 +472,25 @@
 
       <div class="match-card" onclick="openPlayerModalWithType('Fútbol 5')" style="flex:1;min-width:150px;max-width:190px;background:oklch(0.19 0.01 80);border:1px solid oklch(0.25 0.01 80);border-radius:16px;padding:24px 20px;cursor:pointer;transition:border-color 0.15s, transform 0.15s;">
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:12px;color:oklch(0.55 0.01 80);text-transform:uppercase;letter-spacing:0.06em;">Fútbol</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;">5</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;" class="card-num">5</div>
         <div style="font-size:11px;color:oklch(0.6 0.01 80);margin-top:14px;letter-spacing:0.04em;">Masc · Fem · Mixto</div>
       </div>
 
       <div class="match-card" onclick="openPlayerModalWithType('Fútbol 7')" style="flex:1;min-width:150px;max-width:190px;background:oklch(0.19 0.01 80);border:1px solid oklch(0.25 0.01 80);border-radius:16px;padding:24px 20px;cursor:pointer;transition:border-color 0.15s, transform 0.15s;">
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:12px;color:oklch(0.55 0.01 80);text-transform:uppercase;letter-spacing:0.06em;">Fútbol</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;">7</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;" class="card-num">7</div>
         <div style="font-size:11px;color:oklch(0.6 0.01 80);margin-top:14px;letter-spacing:0.04em;">Masc · Fem · Mixto</div>
       </div>
 
       <div class="match-card" onclick="openPlayerModalWithType('Fútbol 9')" style="flex:1;min-width:150px;max-width:190px;background:oklch(0.19 0.01 80);border:1px solid oklch(0.25 0.01 80);border-radius:16px;padding:24px 20px;cursor:pointer;transition:border-color 0.15s, transform 0.15s;">
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:12px;color:oklch(0.55 0.01 80);text-transform:uppercase;letter-spacing:0.06em;">Fútbol</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;">9</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;" class="card-num">9</div>
         <div style="font-size:11px;color:oklch(0.6 0.01 80);margin-top:14px;letter-spacing:0.04em;">Masc · Fem · Mixto</div>
       </div>
 
       <div class="match-card" onclick="openPlayerModalWithType('Fútbol 11')" style="flex:1;min-width:150px;max-width:190px;background:oklch(0.19 0.01 80);border:1px solid oklch(0.25 0.01 80);border-radius:16px;padding:24px 20px;cursor:pointer;transition:border-color 0.15s, transform 0.15s;">
         <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:12px;color:oklch(0.55 0.01 80);text-transform:uppercase;letter-spacing:0.06em;">Fútbol</div>
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;">11</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:48px;color:oklch(0.75 0.19 130);line-height:1;margin-top:4px;" class="card-num">11</div>
         <div style="font-size:11px;color:oklch(0.6 0.01 80);margin-top:14px;letter-spacing:0.04em;">Masc · Fem · Mixto</div>
       </div>
 
@@ -436,7 +504,7 @@
 <section id="como-funciona" style="padding:90px 40px;background:white;">
   <div style="max-width:1000px;margin:0 auto;">
     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0;">Cómo funciona</h2>
-    <div style="display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;">
+    <div class="cf-grid" style="display:flex;gap:32px;flex-wrap:wrap;margin-top:36px;">
       <div style="flex:1;min-width:240px;">
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;color:oklch(0.85 0.03 130);">01</div>
         <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px;color:oklch(0.15 0.01 80);text-transform:uppercase;margin-top:8px;">Creá tu perfil</div>
@@ -461,7 +529,7 @@
 ═══════════════════════════════════════ -->
 <section id="caminos" style="padding:0;">
   <div style="display:flex;flex-wrap:wrap;">
-    <div style="flex:1;min-width:320px;background:oklch(0.15 0.01 80);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
+    <div class="caminos-card" style="flex:1;min-width:320px;background:oklch(0.15 0.01 80);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
       <div style="width:56px;height:56px;border-radius:14px;background:oklch(0.75 0.19 130);display:flex;align-items:center;justify-content:center;">
         <div style="width:20px;height:20px;border-radius:999px;background:oklch(0.15 0.01 80);"></div>
       </div>
@@ -469,7 +537,7 @@
       <div style="color:oklch(0.72 0.01 80);font-size:15px;line-height:1.6;max-width:380px;">¿Te quedaste sin equipo o buscás uno nuevo? Mostrá tu perfil y que los equipos te encuentren.</div>
       <button onclick="openModal('modal-player')" style="margin-top:8px;background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);font-weight:700;text-transform:uppercase;font-size:13px;padding:12px 22px;border-radius:8px;border:none;cursor:pointer;width:fit-content;font-family:'Manrope',sans-serif;">Soy jugador</button>
     </div>
-    <div style="flex:1;min-width:320px;background:oklch(0.75 0.19 130);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
+    <div class="caminos-card" style="flex:1;min-width:320px;background:oklch(0.75 0.19 130);padding:72px 48px;display:flex;flex-direction:column;gap:18px;">
       <div style="width:56px;height:56px;border-radius:14px;background:oklch(0.15 0.01 80);display:flex;align-items:center;justify-content:center;gap:2px;">
         <div style="width:10px;height:10px;border-radius:999px;background:oklch(0.75 0.19 130);"></div>
         <div style="width:10px;height:10px;border-radius:999px;background:oklch(0.75 0.19 130);"></div>
@@ -488,9 +556,9 @@
 <section style="padding:90px 40px;background:oklch(0.97 0 0);">
   <div style="max-width:1000px;margin:0 auto;">
     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0 0 32px;">Lo que dicen los que probaron Onze</h2>
-    <div style="display:flex;gap:24px;flex-wrap:wrap;">
+    <div class="testi-grid" style="display:flex;gap:24px;flex-wrap:wrap;">
 
-      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+      <div class="testi-card" style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
         <div style="display:flex;align-items:center;gap:14px;">
           <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.22 0.01 80);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.75 0.19 130);font-size:16px;flex-shrink:0;">FM</div>
           <div>
@@ -504,7 +572,7 @@
         </div>
       </div>
 
-      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+      <div class="testi-card" style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
         <div style="display:flex;align-items:center;gap:14px;">
           <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.75 0.19 130);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.15 0.01 80);font-size:14px;flex-shrink:0;">AN</div>
           <div>
@@ -518,7 +586,7 @@
         </div>
       </div>
 
-      <div style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
+      <div class="testi-card" style="flex:1;min-width:260px;background:white;border-radius:16px;padding:32px;display:flex;flex-direction:column;gap:16px;border:1px solid oklch(0.92 0 0);">
         <div style="display:flex;align-items:center;gap:14px;">
           <div style="width:44px;height:44px;border-radius:999px;background:oklch(0.22 0.01 80);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:oklch(0.75 0.19 130);font-size:16px;flex-shrink:0;">RV</div>
           <div>
@@ -543,20 +611,20 @@
   <div style="max-width:1000px;margin:0 auto;">
     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:0.1em;color:oklch(0.5 0.16 130);text-align:center;margin:0 0 48px;">Onze en números</h2>
     <div style="display:flex;gap:0;flex-wrap:wrap;justify-content:center;">
-      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">87</div>
+      <div class="num-cell" style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div class="num-big" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">87</div>
         <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Jugadores registrados</div>
       </div>
-      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">23</div>
+      <div class="num-cell" style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div class="num-big" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">23</div>
         <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Equipos activos</div>
       </div>
-      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">41</div>
+      <div class="num-cell" style="flex:1;min-width:180px;text-align:center;padding:32px 24px;border-right:1px solid oklch(0.25 0.01 80);">
+        <div class="num-big" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">41</div>
         <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Conexiones logradas</div>
       </div>
-      <div style="flex:1;min-width:180px;text-align:center;padding:32px 24px;">
-        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">6</div>
+      <div class="num-cell" style="flex:1;min-width:180px;text-align:center;padding:32px 24px;">
+        <div class="num-big" style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:52px;color:oklch(0.75 0.19 130);line-height:1;">6</div>
         <div style="font-size:13px;color:oklch(0.55 0.01 80);margin-top:10px;text-transform:uppercase;letter-spacing:0.06em;">Zonas de Córdoba</div>
       </div>
     </div>
@@ -575,7 +643,7 @@
       </svg>
       <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:white;font-size:22px;text-transform:uppercase;">Onze</span>
     </div>
-    <div id="suscribite" style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;color:white;margin-top:24px;scroll-margin-top:90px;">Enterate primero</div>
+    <div id="suscribite" class="footer-title" style="font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;color:white;margin-top:24px;scroll-margin-top:90px;">Enterate primero</div>
     <div style="color:oklch(0.65 0.01 80);font-size:14px;margin-top:10px;max-width:460px;margin-left:auto;margin-right:auto;">Suscribite y te avisamos cuando lancemos novedades, torneos y actualizaciones. Sin spam.</div>
 
     <div style="margin-top:24px;max-width:420px;margin-left:auto;margin-right:auto;">
@@ -583,7 +651,7 @@
         <div style="color:oklch(0.75 0.19 130);font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;">¡Listo!</div>
         <div style="color:oklch(0.75 0.01 80);font-size:13px;margin-top:4px;">Te avisamos apenas haya novedades.</div>
       </div>
-      <form id="newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex;gap:8px;">
+      <form id="newsletter-form" class="newsletter-form" onsubmit="handleNewsletterSubmit(event)" style="display:flex;gap:8px;">
         <input type="email" required id="newsletter-email" placeholder="tu@email.com"
           style="flex:1;background:oklch(0.19 0.01 80);border:1px solid oklch(0.3 0.01 80);border-radius:8px;padding:12px 14px;color:white;font-size:14px;outline:none;font-family:'Manrope',sans-serif;">
         <button type="submit" style="background:oklch(0.75 0.19 130);color:oklch(0.15 0.01 80);border:none;font-weight:700;text-transform:uppercase;font-size:13px;padding:0 20px;border-radius:8px;cursor:pointer;font-family:'Manrope',sans-serif;">Suscribirme</button>

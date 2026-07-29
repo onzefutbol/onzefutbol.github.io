@@ -279,3 +279,41 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Cómo verificar:** entrar a analytics.google.com → Informes → En tiempo real → abrir onzefutbol.github.io en otra pestaña → tiene que aparecer 1 usuario activo.
 
 ---
+
+## [2026-07-29] Fix responsive — landing rota en móvil
+
+**Qué hice:**
+
+- Agregué `overflow-x: hidden` al `body` como safety net contra scroll horizontal.
+- Bloque `@media (max-width: 640px)` con reglas específicas:
+  - Nav: `padding` 40→16px, `gap` 32→12px. Oculto los links del medio ("Cómo funciona", "Jugadores y equipos") con la clase `.nav-links` — dejo solo el logo y el CTA "Sumarme".
+  - Todas las `<section>` bajan de 40 a 20px de padding horizontal.
+  - Cards de "Para jugadores" y "Para equipos" (clase nueva `.caminos-card`): saco el `min-width:320px` que rompía en pantallas de 360-390px, y bajo padding de 48 a 24px.
+  - `h1` del hero: 56 → 40px para no desbordar.
+
+**Por qué:** en el iPhone del usuario, el nav se veía cortado con "Sumarme" fuera de pantalla y toda la landing tenía scroll horizontal. Las cards de caminos con `min-width:320px + padding:48px` sumaban 416px, más ancho que cualquier celu estándar → esto era la causa raíz del arrastre horizontal. El fix se limita a `@media (max-width: 640px)` para no afectar desktop.
+
+---
+
+## [2026-07-29] Responsive completo — mobile, tablet, desktop
+
+**Qué hice:**
+
+- **Reset defensivo:** `html, body` con `overflow-x: hidden`, `max-width: 100%`, `margin/padding: 0`. `section, footer, nav` con `width: 100%; max-width: 100%`. Esto evita cualquier scroll horizontal accidental sea cual sea la causa.
+- **Sistema de 3 breakpoints coherente:**
+  - `< 1024px` (tablet + mobile): padding lateral de secciones baja a 32px, hero un poco menos alto, H1 de 56→48px.
+  - `641px–1024px` (tablet específico): match cards a 2 por fila, caminos apilados a 100% (ya que un split 50/50 quedaba apretado), testimonios a 2 por fila.
+  - `< 640px` (mobile): 1 columna en todo, nav simplificado, tipografía más chica, paddings mínimos.
+- **Clases nuevas para targeting limpio:** `.hero`, `.cf-grid`, `.testi-grid`, `.testi-card`, `.num-cell`, `.num-big`, `.card-num`, `.footer-title`, `.newsletter-form`. Se agregaron a los elementos existentes sin tocar la estructura HTML.
+- **Reglas específicas del mobile:**
+  - Nav: 12px de padding, botón "Sumarme" más chico (8×14, 12px de fuente).
+  - Hero H1: 34px con letter-spacing -0.02em para que "JUGADORES" quepa.
+  - Match cards: 2 por fila (`flex: 1 1 calc(50% - 8px)`).
+  - Testimonios y caminos: 100% de ancho cada uno.
+  - Números: grid 2×2 con bordes redistribuidos (derecho solo en columna impar, inferior en filas superiores).
+  - Newsletter form: apila email + botón verticalmente.
+  - Modales: padding 20px, overlay con padding 10px, `form-row` apila los campos.
+
+**Por qué:** las reglas anteriores eran parches específicos que dejaban muchos casos sin cubrir (tablet, botón grande del nav apretado en mobile, testimonios con `min-width:260px` que no bajaban, números en 4 columnas horrorosas en 400px). Este bloque es un sistema completo y consistente, más fácil de mantener.
+
+---
