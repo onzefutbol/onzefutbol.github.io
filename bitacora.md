@@ -167,3 +167,97 @@ La función `submitForm()` ya estaba preparada para esto: serializa todos los ca
 **Por qué:** Los números anteriores eran demasiado altos para un proyecto que está comenzando y generaban desconfianza. Los testimonios ahora ubican el producto geográficamente en Córdoba, donde está el foco inicial del proyecto.
 
 ---
+
+## [2026-07-28] Publicación en GitHub Pages
+
+**Qué hice:** Subí la landing a GitHub Pages y quedó accesible en la URL pública `https://onzefutbol.github.io`.
+
+**Cómo lo hice:**
+
+1. Creé cuenta de GitHub con username inicial `onzeappcba`, después renombrada a `onzefutbol` para que fuera más profesional.
+2. Inicialicé el repositorio local con `git init` en la carpeta `onze-landing`.
+3. Hice el primer commit con `git add index.html bitacora.md` + `git commit`.
+4. Creé el repositorio remoto en GitHub con el nombre `onzefutbol.github.io` — cuando el nombre del repo coincide con `<username>.github.io`, Pages publica en la URL raíz sin path adicional.
+5. Configuré el remote con token de acceso personal (PAT) para poder pushear sin autenticación interactiva.
+6. `git push -u origin master` subió los archivos.
+7. En Settings → Pages del repo activé la publicación desde la branch `master` en la raíz.
+
+**Por qué:** Necesitábamos una URL pública para compartir la landing con terceros sin depender del servidor local. GitHub Pages es gratis, no requiere configuración de hosting, y la URL `onzefutbol.github.io` es lo suficientemente corta y memorable para compartir por WhatsApp, Instagram bio, etc.
+
+---
+
+## [2026-07-28] Extracción del logo como archivo SVG independiente
+
+**Qué hice:** Creé `onze-logo.svg` en el Escritorio con el logo del doble chevron listo para abrir en Adobe Illustrator.
+
+**Cómo lo hice:** El logo estaba embebido inline en varios lugares del `index.html` (nav, hero, footer). Lo extraje a un archivo SVG standalone de 200×200 con los dos paths vectoriales: chevron izquierdo oscuro y chevron derecho lima. Los colores están en HEX (no oklch) para máxima compatibilidad con software de diseño.
+
+**Por qué:** El usuario necesita el logo vectorial para usarlo en Adobe Illustrator al crear placas para Instagram y TikTok. Al ser SVG, se puede escalar sin perder calidad y editar cada path por separado.
+
+---
+
+## [2026-07-28] Documentos de sistema de diseño, marca y brief social
+
+**Qué hice:** Generé tres documentos markdown en la carpeta del proyecto para pasarle contexto completo a Claude Design y poder generar placas publicitarias consistentes:
+
+- `design-system.md` — tokens técnicos: colores oklch, tipografías, escalas de spacing, componentes, radios.
+- `brand-system.md` — identidad de marca: voz, tono, valores, público objetivo, do's & don'ts visuales.
+- `social-brief.md` — brief específico para la primera tanda de 15 piezas (5 feed posts, 4 stories, 2 portadas TikTok, foto de perfil, 3 highlight covers).
+
+**Cómo lo hice:** Los tres documentos son consumibles por Claude Design directamente. El design system extrae los valores exactos que ya están en el `index.html`. El brand system codifica decisiones que hasta ahora vivían solo en las conversaciones. El social brief detalla cada pieza con mensaje, layout sugerido, y assets a adjuntar.
+
+**Por qué:** El usuario quiere generar placas de Instagram y TikTok con Claude Design. Sin un sistema de diseño y marca escrito, cada pieza generada podría interpretar la identidad de forma distinta. Con los tres documentos + el logo SVG + una captura de la landing, Claude Design tiene todo el contexto para producir piezas consistentes entre sí y con la landing.
+
+Separé branding de design system (en vez de un solo doc) porque son reutilizables independientemente — el design system sirve para cualquier producto Onze (landing, app, email), y el brand system sirve para cualquier canal (redes, contenido, PR).
+
+---
+
+## [2026-07-28] Rediseño del hero, footer y formularios (matching pro)
+
+**Qué hice:**
+
+- **Hero rediseñado:** saqué el badge "Pre-lanzamiento" y el bloque de waitlist. En su lugar puse un grid de 4 cards clickeables (Fútbol 5, 7, 9 y 11), cada una con etiqueta de categorías disponibles (Masc · Fem · Mixto). Al clickear cualquier card se abre el modal de jugador con el tipo pre-seleccionado.
+- **Nav actualizado:** el botón "Sumarme" ahora dice "Enterate primero" y hace scroll al bloque de suscripción en el footer.
+- **Footer reescrito:** cambié el título "¿Le damos para adelante?" por "Enterate primero" y el subtítulo de validación de idea por una invitación a suscribirse a novedades. Reemplacé el link viejo por un mini-form inline (email + botón Suscribirme) con estado de confirmación.
+- **Copy actualizado:** reemplacé "te mostramos", "te mandamos" y "te conectamos" por lenguaje de matching real ("hacemos match", "te matcheamos") en 5 lugares: paso 02 de "Cómo funciona", intro del modal jugador, intro del modal equipo, y ambos mensajes de éxito.
+- **Nuevos campos en formularios (jugador y equipo):** agregué tres campos: `tipo_futbol` (select con Fútbol 5/7/9/11), `categoria` (select con Masculino/Femenino/Mixto), y `modalidad` (checkboxes múltiples: partido en el momento / próximos días / torneo).
+- **submitForm() mejorado:** ahora concatena los valores múltiples de modalidad en un string separado por comas, y valida que al menos una modalidad esté marcada antes de enviar.
+- **Función `openPlayerModalWithType()`:** nueva función que abre el modal de jugador y pre-selecciona el tipo de fútbol basándose en la card que clickeó el usuario.
+
+**Cómo lo hice:** Todos los cambios en `index.html` (archivo único). Se reutilizaron las clases CSS existentes (`.form-group`, `.form-row`, `.form-input`, `.modal`, `.btn-submit`) para mantener consistencia visual. Solo agregué una clase nueva `.match-card:hover` en el CSS para el efecto hover de las cards del hero.
+
+**Por qué:**
+
+- Las cards de tipos de partido bajan la fricción de entrada: el usuario ve inmediatamente los formatos que Onze cubre y con un click ya está en el flow de registro con contexto.
+- Sacar el mensaje de "ayudanos a decidir si construimos" corrige un tono de validación que ya no aplica — Onze ya está construido y funcionando, ahora comunicamos actividad y crecimiento.
+- El copy de matching refleja con más precisión el modelo del producto: no es un tablón donde ves opciones y elegís, es un sistema que empareja según compatibilidad.
+- Los 3 campos nuevos suben la calidad del matching: sin conocer tipo de fútbol y categoría, todas las conexiones eran ruido. La modalidad múltiple maximiza los matches posibles por jugador.
+
+**Pendiente asociado (acción manual):** actualizar el Google Sheet agregando las columnas `tipo_futbol`, `categoria` y `modalidad`, y actualizar la función `doPost` del Apps Script para incluirlas en el `appendRow()`. Sin esto, los datos nuevos se envían pero no se guardan.
+
+---
+
+## [2026-07-29] Ajustes de nav y testimonial
+
+**Qué hice:**
+
+- **Nav — botón CTA:** renombré "Enterate primero" a "Sumarme" (más directo, mismo destino `#suscribite`).
+- **Nav — logo clickeable:** envolví el logo SVG + texto "Onze" en un `<a href="#">` para que al clickear vuelva al inicio de la página.
+- **Testimonio:** cambié el segundo testimonio de "Los Búfalos FC · Güemes" a "Anticresis · Villa Allende", con avatar "AN" en lugar de "LB".
+
+**Por qué:** el botón "Sumarme" es más accionable y coincide con el lenguaje del resto del sitio. El logo sin link es un antipatrón de UX. El testimonio actualizado usa un nombre real de equipo y una zona geográfica de Córdoba más específica.
+
+---
+
+## [2026-07-29] Modales compactos + botón Cancelar
+
+**Qué hice:**
+
+- **Modal más chico:** reduje `max-width` de 500 a 440px, `padding` de 40 a 24/28px, `border-radius` de 20 a 16px. Agregué `max-height: calc(100vh - 40px)` con `overflow-y: auto` para que en pantallas bajas se pueda scrollear internamente en vez de cortar el formulario.
+- **Escala tipográfica y de campos ajustada:** `h2` 22→19px, `p` 14→13px, `label` 12→11px, `form-input` padding 11/14→9/12px y font 14→13px, `form-group margin-bottom` 14→10px. La sensación general es un formulario más denso pero legible.
+- **Botón Cancelar:** creé `.form-actions` (flex row) y `.btn-cancel` (transparente con borde) para que el submit y el cancelar convivan al pie de cada formulario. Los dos formularios (jugador y equipo) tienen el par de botones; "Cancelar" cierra el modal.
+- **Textos de botones acortados:** "Enviar mi perfil" → "Enviar", "Publicar búsqueda" → "Publicar" (con menos ancho por card, textos más cortos leen mejor).
+
+**Por qué:** el modal ocupaba casi toda la pantalla y forzaba a scroll dentro de una overlay incómoda; achicándolo se ve más liviano y profesional. La ausencia de un botón explícito de cancelar dejaba solamente la ✕ chica de la esquina, que muchos usuarios no ven — un botón "Cancelar" al lado del submit reduce la ansiedad de "estoy comprometido a enviar esto".
+
+---

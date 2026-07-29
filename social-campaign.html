@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onze · Campaña Social — Tanda 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --lima:          #B3F000;
+  --lima-hover:    #9FD800;
+  --lima-dark:     #6A8D00;
+  --lima-soft:     #D8E5B8;
+  --dark-base:     #242220;
+  --dark-card:     #1D1B1A;
+  --dark-deep:     #141312;
+  --dark-elevated: #2C2A28;
+  --dark-elev2:    #332F2D;
+  --off-white:     #F5F5F5;
+  --white:         #FFFFFF;
+  --gray-dark:     #4A4745;
+  --gray-mid:      #7A7673;
+  --gray-soft:     #8A8683;
+  --gray-light:    #A6A29F;
+  --gray-border:   #3E3B39;
+  --yellow:        #D4B300;
+  --stripes: repeating-linear-gradient(
+    45deg,
+    #1e1c1a, #1e1c1a 10px,
+    #292624 10px, #292624 20px
+  );
+}
+
+body {
+  background: #0e0d0c;
+  font-family: 'Manrope', sans-serif;
+  color: var(--white);
+  padding: 56px 24px 100px;
+}
+
+/* ── NAV ── */
+.nav {
+  max-width: 1100px;
+  margin: 0 auto 64px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nav a {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--gray-mid);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid var(--gray-border);
+  border-radius: 8px;
+  transition: color .15s, border-color .15s;
+}
+.nav a:hover { color: var(--lima); border-color: var(--lima); }
+
+/* ── PAGE HEADER ── */
+.page-header {
+  max-width: 1100px;
+  margin: 0 auto 72px;
+}
+.page-header .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Manrope', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dark-base);
+  background: var(--lima);
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+.page-header h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 4vw, 40px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: white;
+  margin-bottom: 10px;
+}
+.page-header p {
+  font-size: 14px;
+  color: var(--gray-soft);
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* ── SECTION ── */
+.campaign-section {
+  max-width: 1100px;
+  margin: 0 auto 80px;
+}
+.section-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lima);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: white;
+  margin-bottom: 4px;
+}
+.section-desc {
+  font-size: 13px;
+  color: var(--gray-mid);
+  margin-bottom: 36px;
+}
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--gray-border);
+  margin-bottom: 36px;
+}
+
+/* ── PIECE WRAPPER ── */
+.pieces-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.piece {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.piece-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.piece-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lima);
+}
+.piece-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 12px;
+  color: var(--gray-mid);
+}
+
+/* ── FRAMES ── */
+/* Feed 1:1 */
+.frame-feed {
+  width: min(100%, 500px);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--gray-border);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+/* Story / TikTok 9:16 */
+.frame-story {
+  width: min(100%, 300px);
+  aspect-ratio: 9 / 16;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--gray-border);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+/* Square small (profile, highlight) */
+.frame-sm {
+  width: min(100%, 220px);
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid var(--gray-border);
+  flex-shrink: 0;
+}
+/* Highlight (same ratio as story but smaller display) */
+.frame-hl {
+  width: min(100%, 160px);
+  aspect-ratio: 9 / 16;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid var(--gray-border);
+  flex-shrink: 0;
+}
+
+/* ── CAPTION BOX ── */
+.caption {
+  width: min(100%, 500px);
+  background: var(--dark-card);
+  border: 1px solid var(--gray-border);
+  border-radius: 10px;
+  padding: 20px 22px;
+  flex-shrink: 0;
+}
+.caption .cap-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lima);
+  margin-bottom: 10px;
+}
+.caption .cap-text {
+  font-size: 13px;
+  color: var(--gray-light);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+/* ── FULL PIECE LAYOUT ── */
+.piece-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* ════════════════════════════════════════
+   LOGO SVG — se define como función via JS
+   ════════════════════════════════════════ */
+
+/* ══════════════════════════════════
+   POST 1 · Anuncio de lanzamiento
+   ══════════════════════════════════ */
+.p1 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+  position: relative;
+}
+.p1 .bg-mark {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.06;
+  pointer-events: none;
+}
+.p1 .bg-mark svg { width: 75%; height: 75%; }
+.p1 .content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+.p1 .logo-top { margin-bottom: 10%; }
+.p1 h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(22px, 5.5cqw, 52px);
+  text-transform: uppercase;
+  color: white;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 3%;
+}
+.p1 h2 em { font-style: normal; color: var(--lima); }
+.p1 .divider { width: 28px; height: 2px; background: var(--lima); margin: 3% auto; }
+.p1 .sub {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(11px, 2.2cqw, 17px);
+  font-weight: 500;
+  color: var(--gray-soft);
+  margin-bottom: 8%;
+}
+.p1 .url {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 1.8cqw, 14px);
+  font-weight: 700;
+  color: var(--lima);
+}
+
+/* ══════════════════════════════════
+   POST 2 · Jugador libre (split)
+   ══════════════════════════════════ */
+.p2 { width: 100%; height: 100%; position: relative; }
+.p2 .top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 57%;
+  background: var(--dark-base);
+  clip-path: polygon(0 0, 100% 0, 100% 82%, 0 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 7% 8% 0;
+  z-index: 2;
+}
+.p2 .bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: var(--lima);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8% 7%;
+  z-index: 1;
+}
+.p2 .top .logo-sm { margin-bottom: 8%; }
+.p2 .top h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(19px, 4.5cqw, 44px);
+  text-transform: uppercase;
+  color: white;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.p2 .bottom .answer {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(12px, 2.8cqw, 22px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+  line-height: 1.2;
+  margin-bottom: 3%;
+}
+.p2 .bottom .url-dark {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(8px, 1.6cqw, 13px);
+  font-weight: 700;
+  color: var(--gray-dark);
+}
+
+/* ══════════════════════════════════
+   POST 3 · Equipo (split inverso)
+   ══════════════════════════════════ */
+.p3 { width: 100%; height: 100%; position: relative; }
+.p3 .top {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 57%;
+  background: var(--lima);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 82%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 7% 8% 0;
+  z-index: 2;
+}
+.p3 .bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 55%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 8% 7%;
+  z-index: 1;
+}
+.p3 .top .logo-sm { margin-bottom: 8%; }
+.p3 .top h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 3.8cqw, 38px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.p3 .bottom .answer {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(12px, 2.8cqw, 22px);
+  text-transform: uppercase;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 3%;
+}
+.p3 .bottom .url-light {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(8px, 1.6cqw, 13px);
+  font-weight: 700;
+  color: var(--gray-soft);
+}
+
+/* ══════════════════════════════════
+   POST 4 · Testimonio
+   ══════════════════════════════════ */
+.p4 {
+  width: 100%; height: 100%;
+  background: var(--off-white);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+  gap: 0;
+}
+.p4 .stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 5%;
+}
+.p4 .star {
+  font-size: clamp(12px, 2.8cqw, 22px);
+  color: var(--yellow);
+}
+.p4 .quote {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(12px, 2.6cqw, 20px);
+  font-weight: 500;
+  color: var(--gray-dark);
+  line-height: 1.55;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 6%;
+}
+.p4 .attribution {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5%, 14px);
+  margin-bottom: 8%;
+}
+.p4 .avatar {
+  width: clamp(32px, 7%, 44px);
+  height: clamp(32px, 7%, 44px);
+  border-radius: 999px;
+  background: var(--dark-base);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 1.8cqw, 14px);
+  text-transform: uppercase;
+  color: var(--lima);
+  flex-shrink: 0;
+}
+.p4 .attr-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 2cqw, 15px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+}
+.p4 .attr-role {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 1.6cqw, 13px);
+  color: var(--gray-mid);
+  margin-top: 2px;
+}
+.p4 .sig {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.p4 .sig-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(9px, 1.6cqw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gray-dark);
+}
+
+/* ══════════════════════════════════
+   POST 5 · Números
+   ══════════════════════════════════ */
+.p5 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8%;
+}
+.p5 .tag5 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(9px, 1.6cqw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lima);
+  margin-bottom: 3%;
+}
+.p5 .title5 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 4.5cqw, 38px);
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 7%;
+  line-height: 1.05;
+}
+.p5 .grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3%;
+  width: 88%;
+  margin-bottom: 7%;
+}
+.p5 .metric {
+  text-align: center;
+  padding: 5% 2%;
+  border: 1px solid var(--gray-border);
+  border-radius: 10px;
+}
+.p5 .mn {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(26px, 7cqw, 58px);
+  color: var(--lima);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.p5 .ml {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(8px, 1.6cqw, 12px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-mid);
+}
+.p5 .url5 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(8px, 1.6cqw, 13px);
+  font-weight: 700;
+  color: var(--gray-soft);
+}
+
+/* ══════════════════════════════════
+   STORY 1 · Sumate a la lista
+   ══════════════════════════════════ */
+.s1 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9% 8%;
+  position: relative;
+}
+.s1 .logo-s { margin-bottom: auto; }
+.s1 .msg {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 5cqw, 36px);
+  text-transform: uppercase;
+  color: white;
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 5%;
+}
+.s1 .msg em { font-style: normal; color: var(--lima); }
+.s1 .sub-s {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(11px, 2.5cqw, 16px);
+  color: var(--gray-light);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: auto;
+}
+.s1 .cta-box {
+  width: 100%;
+  background: var(--lima);
+  border-radius: 10px;
+  padding: 5% 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8%;
+}
+.s1 .cta-url {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(10px, 2.5cqw, 15px);
+  font-weight: 700;
+  color: var(--dark-base);
+}
+.s1 .cta-arrow {
+  font-size: clamp(14px, 3cqw, 20px);
+  color: var(--dark-base);
+}
+
+/* ══════════════════════════════════
+   STORY 2 · Testimonio vertical
+   ══════════════════════════════════ */
+.s2 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 9% 8%;
+  gap: 0;
+}
+.s2 .stars2 { display: flex; gap: 3px; margin-bottom: 6%; }
+.s2 .star2 { font-size: clamp(14px, 3.5cqw, 20px); color: var(--yellow); }
+.s2 .quote2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(14px, 3.2cqw, 22px);
+  font-weight: 500;
+  color: white;
+  line-height: 1.55;
+  text-align: center;
+  font-style: italic;
+  margin-bottom: 7%;
+}
+.s2 .attribution2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10%;
+}
+.s2 .av2 {
+  width: clamp(36px, 8%, 48px);
+  height: clamp(36px, 8%, 48px);
+  border-radius: 999px;
+  background: var(--dark-elev2);
+  border: 2px solid var(--lima);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 2cqw, 14px);
+  color: var(--lima);
+  flex-shrink: 0;
+}
+.s2 .a2-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(10px, 2.2cqw, 14px);
+  text-transform: uppercase;
+  color: white;
+}
+.s2 .a2-role {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 1.8cqw, 12px);
+  color: var(--gray-soft);
+  margin-top: 2px;
+}
+.s2 .divider2 {
+  width: 28px; height: 2px;
+  background: var(--gray-border);
+  margin-bottom: 8%;
+}
+.s2 .sig2 { display: flex; align-items: center; gap: 7px; }
+.s2 .sig2-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(9px, 1.8cqw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gray-soft);
+}
+
+/* ══════════════════════════════════
+   STORY 3 · 3 pasos
+   ══════════════════════════════════ */
+.s3 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 9% 8%;
+  gap: 0;
+  position: relative;
+}
+.s3 .logo-s3 { margin-bottom: 8%; }
+.s3 .section-tag3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(8px, 1.8cqw, 12px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lima);
+  margin-bottom: 6%;
+}
+.s3 .step {
+  display: flex;
+  align-items: flex-start;
+  gap: 5%;
+  margin-bottom: 7%;
+  padding-bottom: 7%;
+  border-bottom: 1px solid var(--gray-border);
+}
+.s3 .step:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.s3 .step-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(20px, 5cqw, 36px);
+  color: var(--lima);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 20%;
+}
+.s3 .step-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(13px, 3cqw, 20px);
+  text-transform: uppercase;
+  color: white;
+  line-height: 1.2;
+}
+.s3 .step-desc {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 2cqw, 13px);
+  color: var(--gray-soft);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+/* ══════════════════════════════════
+   STORY 4 · Encuesta zona
+   ══════════════════════════════════ */
+.s4 {
+  width: 100%; height: 100%;
+  background: var(--lima);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 9% 8%;
+  gap: 0;
+  position: relative;
+}
+.s4 .bg4 {
+  position: absolute;
+  inset: 0;
+  background: var(--stripes);
+  opacity: 0.12;
+  pointer-events: none;
+}
+.s4 .content4 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.s4 .logo4 { margin-bottom: 8%; }
+.s4 h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 4.5cqw, 32px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+  text-align: center;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 5%;
+}
+.s4 .sub4 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(10px, 2.2cqw, 15px);
+  color: var(--gray-dark);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 8%;
+}
+.s4 .poll-placeholder {
+  width: 90%;
+  background: rgba(36,34,32,0.12);
+  border: 2px dashed rgba(36,34,32,0.3);
+  border-radius: 14px;
+  padding: 6% 5%;
+  text-align: center;
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 1.8cqw, 12px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(36,34,32,0.5);
+}
+
+/* ══════════════════════════════════
+   TIKTOK 1 · Nueva temporada
+   ══════════════════════════════════ */
+.t1 {
+  width: 100%; height: 100%;
+  background: var(--dark-base);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.t1 .bg-strip {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 58%;
+  background: var(--lima);
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+}
+.t1 .content-t1 {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 8%;
+  height: 100%;
+}
+.t1 .logo-t1 { margin-bottom: 6%; }
+.t1 .season {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(28px, 7cqw, 52px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  margin-bottom: 3%;
+}
+.t1 .tagline-t1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 3.5cqw, 22px);
+  text-transform: uppercase;
+  color: var(--dark-base);
+  line-height: 1.2;
+  opacity: 0.75;
+  margin-bottom: auto;
+}
+.t1 .bottom-t1 {
+  display: flex;
+  flex-direction: column;
+  gap: 3%;
+}
+.t1 .sub-t1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(11px, 2.5cqw, 16px);
+  color: var(--gray-light);
+  line-height: 1.4;
+}
+.t1 .url-t1 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 2cqw, 14px);
+  font-weight: 700;
+  color: var(--lima);
+}
+
+/* ══════════════════════════════════
+   TIKTOK 2 · Foto jugador + overlay
+   ══════════════════════════════════ */
+.t2 {
+  width: 100%; height: 100%;
+  background: var(--dark-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 8%;
+  position: relative;
+  overflow: hidden;
+}
+.t2 .photo-ph {
+  position: absolute;
+  inset: 0;
+  background: var(--stripes);
+}
+.t2 .overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,19,18,0.95) 40%, rgba(20,19,18,0.3) 100%);
+}
+.t2 .content-t2 {
+  position: relative;
+  z-index: 1;
+}
+.t2 .logo-t2 { margin-bottom: 5%; }
+.t2 .headline {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(30px, 8cqw, 58px);
+  text-transform: uppercase;
+  color: white;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
+  margin-bottom: 4%;
+}
+.t2 .headline em { font-style: normal; color: var(--lima); }
+.t2 .sub-t2 {
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(10px, 2.5cqw, 15px);
+  color: var(--gray-light);
+  margin-bottom: 6%;
+  line-height: 1.4;
+}
+.t2 .cta-t2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--lima);
+  color: var(--dark-base);
+  font-family: 'Manrope', sans-serif;
+  font-size: clamp(9px, 2cqw, 13px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3% 5%;
+  border-radius: 8px;
+}
+
+/* ══════════════════════════════════
+   PROFILE PIC
+   ══════════════════════════════════ */
+.pp {
+  width: 100%; height: 100%;
+  background: var(--dark-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pp svg { width: 58%; height: 58%; }
+
+/* ══════════════════════════════════
+   HIGHLIGHT COVERS
+   ══════════════════════════════════ */
+.hl {
+  width: 100%; height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 6% 12%;
+  position: relative;
+}
+.hl .bg-hl { position: absolute; inset: 0; }
+.hl .icon-hl {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 8%;
+}
+.hl .label-hl {
+  position: relative;
+  z-index: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(8px, 2cqw, 12px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  text-align: center;
+}
+
+/* ─── Jugadores ─── */
+.hl-1 .bg-hl { background: var(--dark-base); }
+.hl-1 .label-hl { color: white; }
+
+/* ─── Equipos ─── */
+.hl-2 .bg-hl { background: var(--lima); }
+.hl-2 .label-hl { color: var(--dark-base); }
+
+/* ─── Cómo funciona ─── */
+.hl-3 .bg-hl { background: var(--dark-elevated); }
+.hl-3 .label-hl { color: var(--lima); }
+
+/* ── FRAME cqw support (container queries) ── */
+.frame-feed  { container-type: inline-size; }
+.frame-story { container-type: inline-size; }
+.frame-sm    { container-type: inline-size; }
+.frame-hl    { container-type: inline-size; }
+
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE HEADER ══ -->
+<header class="page-header">
+  <div class="badge">Onze · Campaña Social · Tanda 1</div>
+  <h1>15 piezas para Instagram y TikTok</h1>
+  <p>Mockups en escala de pantalla. Exportar a 1080×1080 (feed) y 1080×1920 (stories/TikTok). Todos los tokens siguen el design-system oficial.</p>
+</header>
+
+<!-- ── NAV ── -->
+<nav class="nav">
+  <a href="#feed">Feed posts</a>
+  <a href="#stories">Stories</a>
+  <a href="#tiktok">TikTok</a>
+  <a href="#profile">Perfil y Highlights</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     SECCIÓN 1 · FEED POSTS (1080 × 1080)
+     ══════════════════════════════════════════ -->
+<section class="campaign-section" id="feed">
+  <div class="section-label">Sección 01</div>
+  <div class="section-title">Feed Posts · Instagram</div>
+  <div class="section-desc">5 piezas · 1080 × 1080 px · Grid de perfil</div>
+  <div class="section-divider"></div>
+
+  <!-- POST 1 -->
+  <div class="piece" style="margin-bottom:56px">
+    <div class="piece-meta">
+      <span class="piece-num">01/15</span>
+      <span class="piece-name">Anuncio de lanzamiento</span>
+    </div>
+    <div class="piece-inner">
+      <div class="frame-feed">
+        <div class="p1">
+          <div class="bg-mark">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="content">
+            <div class="logo-top">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(20px,4cqw,36px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <h2>Ya estamos<br>en <em>Córdoba.</em></h2>
+            <div class="divider"></div>
+            <p class="sub">Onze · conectando jugadores y equipos</p>
+            <p class="url">onzefutbol.github.io</p>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="cap-label">Caption · Instagram</div>
+        <div class="cap-text">Ya estamos en Córdoba. 🏟️
+
+Onze conecta jugadores libres con equipos que están buscando sumar. Sin grupos de WhatsApp perdidos, sin vueltas.
+
+¿Jugás en Córdoba? Registrate en la lista de espera → link en bio.
+
+#futbolcordobes #futbolargentino #futbolamateur #Cordoba #jugadores #onzefutbol</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="piece" style="margin-bottom:56px">
+    <div class="piece-meta">
+      <span class="piece-num">02/15</span>
+      <span class="piece-name">Dolor del jugador libre</span>
+    </div>
+    <div class="piece-inner">
+      <div class="frame-feed">
+        <div class="p2">
+          <div class="top">
+            <div class="logo-sm">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(16px,3.5cqw,28px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <h2>¿Te quedaste<br>sin equipo?</h2>
+          </div>
+          <div class="bottom">
+            <p class="answer">Publicá tu perfil.<br>Que los equipos<br>te encuentren.</p>
+            <p class="url-dark">onzefutbol.github.io</p>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="cap-label">Caption · Instagram</div>
+        <div class="cap-text">¿Te quedaste sin equipo por una mudanza, cambio de horarios, o el grupo se disolvió?
+
+Publicá tu perfil en Onze. Decí en qué zona jugás, qué posición ocupás, cuándo podés. Los equipos te encuentran.
+
+Sin grupos de WhatsApp perdidos. Sin vueltas.
+
+Registrate → link en bio.
+
+#jugadorlibre #futbolamateur #futbolcordobes #buscoequipo #Cordoba</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="piece" style="margin-bottom:56px">
+    <div class="piece-meta">
+      <span class="piece-num">03/15</span>
+      <span class="piece-name">Dolor del equipo</span>
+    </div>
+    <div class="piece-inner">
+      <div class="frame-feed">
+        <div class="p3">
+          <div class="top">
+            <div class="logo-sm">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(16px,3.5cqw,28px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="#242220" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#6A8D00" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <h2>Falta uno<br>para completar<br>el plantel.</h2>
+          </div>
+          <div class="bottom">
+            <p class="answer">Publicá la búsqueda.<br>Recibí postulaciones<br>directas.</p>
+            <p class="url-light">onzefutbol.github.io</p>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="cap-label">Caption · Instagram</div>
+        <div class="cap-text">¿Lesión, viaje, o alguien que dejó de aparecer? Pasa siempre.
+
+Publicá en Onze lo que necesitás: posición, horario, zona. Los jugadores que encajan se postulan.
+
+Sin esperar que alguien te recomiende a alguien de alguien.
+
+Registrá tu equipo → link en bio.
+
+#capitandequipo #futbolamateur #futbolcordobes #buscojugador #Cordoba #equipos</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="piece" style="margin-bottom:56px">
+    <div class="piece-meta">
+      <span class="piece-num">04/15</span>
+      <span class="piece-name">Testimonio — Franco Molina</span>
+    </div>
+    <div class="piece-inner">
+      <div class="frame-feed">
+        <div class="p4">
+          <div class="stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <p class="quote">"Llevaba meses buscando equipo<br>por WhatsApp. Con Onze encontré<br>uno en mi zona en menos<br>de una semana."</p>
+          <div class="attribution">
+            <div class="avatar">FM</div>
+            <div>
+              <div class="attr-name">Franco M.</div>
+              <div class="attr-role">Volante · Nueva Córdoba</div>
+            </div>
+          </div>
+          <div class="sig">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(12px,2.5cqw,18px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="#242220" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#6A8D00" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+            <span class="sig-name">Onze</span>
+          </div>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="cap-label">Caption · Instagram</div>
+        <div class="cap-text">Franco llevaba meses buscando equipo por WhatsApp. En menos de una semana encontró uno en su zona.
+
+Eso es Onze.
+
+¿Vos también estás buscando? Registrate → link en bio.
+
+#testimonios #futbolamateur #futbolcordobes #NuevaCórdoba #onzefutbol</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="piece" style="margin-bottom:56px">
+    <div class="piece-meta">
+      <span class="piece-num">05/15</span>
+      <span class="piece-name">Social proof — Números</span>
+    </div>
+    <div class="piece-inner">
+      <div class="frame-feed">
+        <div class="p5">
+          <div class="tag5">Onze en números</div>
+          <div class="title5">Córdoba<br>ya arrancó.</div>
+          <div class="grid">
+            <div class="metric"><div class="mn">87</div><div class="ml">Jugadores</div></div>
+            <div class="metric"><div class="mn">23</div><div class="ml">Equipos</div></div>
+            <div class="metric"><div class="mn">41</div><div class="ml">Conexiones</div></div>
+            <div class="metric"><div class="mn">6</div><div class="ml">Zonas</div></div>
+          </div>
+          <div class="url5">onzefutbol.github.io</div>
+        </div>
+      </div>
+      <div class="caption">
+        <div class="cap-label">Caption · Instagram</div>
+        <div class="cap-text">87 jugadores. 23 equipos. 41 conexiones. 6 zonas de Córdoba.
+
+Y apenas arrancamos.
+
+¿Tu zona todavía no está? Sumate y la sumamos.
+
+onzefutbol.github.io → link en bio.
+
+#futbolcordobes #futbolamateur #Cordoba #onzefutbol</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECCIÓN 2 · STORIES (1080 × 1920)
+     ══════════════════════════════════════════ -->
+<section class="campaign-section" id="stories">
+  <div class="section-label">Sección 02</div>
+  <div class="section-title">Stories & Reel Covers · Instagram</div>
+  <div class="section-desc">4 piezas · 1080 × 1920 px · Historias y portada de Reels</div>
+  <div class="section-divider"></div>
+
+  <div class="pieces-row">
+
+    <!-- STORY 1 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">06/15</span>
+        <span class="piece-name">Sumate a la lista</span>
+      </div>
+      <div class="frame-story">
+        <div class="s1">
+          <div class="logo-s">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(18px,5cqw,28px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <p class="msg">Sumate antes<br>que <em>arranque.</em></p>
+          <p class="sub-s">Lista de espera abierta.<br>Solo un mail cuando lancemos.<br>Sin spam.</p>
+          <div class="cta-box">
+            <span class="cta-url">onzefutbol.github.io</span>
+            <span class="cta-arrow">↑</span>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · Story</div>
+        <div class="cap-text">Registrate en la lista de espera → link en bio.
+
+Sin spam. Solo un mail cuando lancemos.</div>
+      </div>
+    </div>
+
+    <!-- STORY 2 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">07/15</span>
+        <span class="piece-name">Testimonio — Los Búfalos</span>
+      </div>
+      <div class="frame-story">
+        <div class="s2">
+          <div class="stars2">
+            <span class="star2">★</span><span class="star2">★</span><span class="star2">★</span><span class="star2">★</span><span class="star2">★</span>
+          </div>
+          <p class="quote2">"En dos días encontramos defensor. Vive a 10 cuadras."</p>
+          <div class="attribution2">
+            <div class="av2">LB</div>
+            <div>
+              <div class="a2-name">Los Búfalos FC</div>
+              <div class="a2-role">Equipo · Güemes</div>
+            </div>
+          </div>
+          <div class="divider2"></div>
+          <div class="sig2">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(12px,3cqw,18px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+            <span class="sig2-name">Onze · onzefutbol.github.io</span>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · Story</div>
+        <div class="cap-text">Los Búfalos necesitaban defensor. En dos días lo encontraron a 10 cuadras del club.
+
+¿Buscás jugadores? Registrá tu equipo → link en bio.</div>
+      </div>
+    </div>
+
+    <!-- STORY 3 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">08/15</span>
+        <span class="piece-name">Los 3 pasos</span>
+      </div>
+      <div class="frame-story">
+        <div class="s3">
+          <div class="logo-s3">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(16px,4.5cqw,26px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="section-tag3">Cómo funciona</div>
+          <div class="step">
+            <div class="step-num">01</div>
+            <div>
+              <div class="step-text">Creá tu perfil</div>
+              <div class="step-desc">Posición, zona, disponibilidad. Dos minutos.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div>
+              <div class="step-text">Onze te conecta</div>
+              <div class="step-desc">Equipos que buscan lo que vos ofrecés te encuentran.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div>
+              <div class="step-text">Se arma el equipo</div>
+              <div class="step-desc">Coordinan directo. Sin intermediarios.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · Story</div>
+        <div class="cap-text">Tres pasos, no diez.
+
+01 · Creá tu perfil
+02 · Onze te conecta
+03 · Se arma el equipo
+
+Registrate → link en bio.</div>
+      </div>
+    </div>
+
+    <!-- STORY 4 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">09/15</span>
+        <span class="piece-name">Encuesta — ¿En qué zona jugás?</span>
+      </div>
+      <div class="frame-story">
+        <div class="s4">
+          <div class="bg4"></div>
+          <div class="content4">
+            <div class="logo4">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(18px,5cqw,28px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="#242220" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#6A8D00" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <h2>¿En qué zona<br>de Córdoba<br>jugás?</h2>
+            <p class="sub4">Nos ayudás a llegar antes a tu barrio.</p>
+            <div class="poll-placeholder">→ Agregar sticker de encuesta ←</div>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · Story</div>
+        <div class="cap-text">¿En qué zona de Córdoba jugás?
+
+Respondé la encuesta. Nos ayudás a llegar antes a tu barrio.
+
+#futbolcordobes #Cordoba</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECCIÓN 3 · TIKTOK (1080 × 1920)
+     ══════════════════════════════════════════ -->
+<section class="campaign-section" id="tiktok">
+  <div class="section-label">Sección 03</div>
+  <div class="section-title">TikTok · Portadas</div>
+  <div class="section-desc">2 piezas · 1080 × 1920 px · Portada estática de video</div>
+  <div class="section-divider"></div>
+
+  <div class="pieces-row">
+
+    <!-- TIKTOK 1 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">10/15</span>
+        <span class="piece-name">Nueva temporada</span>
+      </div>
+      <div class="frame-story">
+        <div class="t1">
+          <div class="bg-strip"></div>
+          <div class="content-t1">
+            <div class="logo-t1">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(18px,5cqw,28px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="#242220" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#6A8D00" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <div class="season">NUEVA<br>TEMPORADA</div>
+            <div class="tagline-t1">Encontrá tu equipo<br>en Córdoba.</div>
+            <div class="bottom-t1">
+              <div class="sub-t1">Jugadores y equipos.<br>Una sola plataforma.</div>
+              <div class="url-t1">onzefutbol.github.io</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · TikTok</div>
+        <div class="cap-text">Nueva temporada en Córdoba. 🟢
+
+Si te quedaste sin equipo o te falta uno para el plantel, Onze te conecta.
+
+Sin grupos de WhatsApp perdidos. Sin vueltas.
+
+Link en bio → onzefutbol.github.io
+
+#futbolcordobes #futbolamateur #Cordoba #onzefutbol #nuevatemporada</div>
+      </div>
+    </div>
+
+    <!-- TIKTOK 2 -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">11/15</span>
+        <span class="piece-name">Sumate ahora (foto + overlay)</span>
+      </div>
+      <div class="frame-story">
+        <div class="t2">
+          <div class="photo-ph"></div>
+          <div class="overlay"></div>
+          <div class="content-t2">
+            <div class="logo-t2">
+              <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(16px,4.5cqw,24px);width:auto">
+                <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+                <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              </svg>
+            </div>
+            <div class="headline">SUMATE<br><em>AHORA</em></div>
+            <div class="sub-t2">Registrate en la lista de espera.<br>Córdoba ya está en Onze.</div>
+            <div class="cta-t2">onzefutbol.github.io ↑</div>
+          </div>
+        </div>
+      </div>
+      <div class="caption" style="max-width:300px">
+        <div class="cap-label">Caption · TikTok</div>
+        <div class="cap-text">Córdoba ya está en Onze. ⚽
+
+Registrate en la lista de espera antes del lanzamiento → link en bio.
+
+#futbolcordobes #futbolamateur #Cordoba #onzefutbol #sumate</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SECCIÓN 4 · PERFIL Y HIGHLIGHTS
+     ══════════════════════════════════════════ -->
+<section class="campaign-section" id="profile">
+  <div class="section-label">Sección 04</div>
+  <div class="section-title">Foto de Perfil y Highlights</div>
+  <div class="section-desc">4 piezas · Avatar y Historias Destacadas</div>
+  <div class="section-divider"></div>
+
+  <div class="pieces-row" style="align-items: flex-end;">
+
+    <!-- PROFILE PIC -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">12/15</span>
+        <span class="piece-name">Foto de perfil definitiva</span>
+      </div>
+      <div class="frame-sm">
+        <div class="pp">
+          <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+      </div>
+      <div class="caption" style="max-width:220px">
+        <div class="cap-label">Uso</div>
+        <div class="cap-text">Instagram, TikTok, WhatsApp Business. Fondo dark card, chevron centrado al 58% del diámetro.</div>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHT 1: Jugadores -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">13/15</span>
+        <span class="piece-name">Highlight · Jugadores</span>
+      </div>
+      <div class="frame-hl">
+        <div class="hl hl-1">
+          <div class="bg-hl"></div>
+          <div class="icon-hl">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(20px,8cqw,32px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="label-hl">Jugadores</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHT 2: Equipos -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">14/15</span>
+        <span class="piece-name">Highlight · Equipos</span>
+      </div>
+      <div class="frame-hl">
+        <div class="hl hl-2">
+          <div class="bg-hl"></div>
+          <div class="icon-hl">
+            <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(20px,8cqw,32px);width:auto">
+              <polyline points="8,6 42,35 8,64" stroke="#242220" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+              <polyline points="92,6 58,35 92,64" stroke="#6A8D00" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="label-hl">Equipos</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HIGHLIGHT 3: Cómo funciona -->
+    <div class="piece">
+      <div class="piece-meta">
+        <span class="piece-num">15/15</span>
+        <span class="piece-name">Highlight · Cómo funciona</span>
+      </div>
+      <div class="frame-hl">
+        <div class="hl hl-3">
+          <div class="bg-hl"></div>
+          <div class="icon-hl">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:clamp(22px,9cqw,34px);width:auto">
+              <!-- Números "01 02 03" estilizados -->
+              <text x="30" y="38" text-anchor="middle"
+                font-family="'Space Grotesk', sans-serif" font-weight="700"
+                font-size="22" fill="#B3F000" letter-spacing="-1">01</text>
+              <line x1="10" y1="44" x2="50" y2="44" stroke="#3E3B39" stroke-width="1.5"/>
+              <text x="30" y="56" text-anchor="middle"
+                font-family="'Space Grotesk', sans-serif" font-weight="700"
+                font-size="16" fill="#7A7673" letter-spacing="-1" opacity="0.6">02  03</text>
+            </svg>
+          </div>
+          <div class="label-hl">Cómo funciona</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+     ══════════════════════════════════════════ -->
+<footer style="max-width:1100px;margin:0 auto;padding-top:56px;border-top:1px solid #2C2A28;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+  <div style="display:flex;align-items:center;gap:10px">
+    <svg viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg" style="height:22px;width:auto">
+      <polyline points="8,6 42,35 8,64" stroke="white" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+      <polyline points="92,6 58,35 92,64" stroke="#B3F000" stroke-width="9" stroke-linecap="square" stroke-linejoin="miter"/>
+    </svg>
+    <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;text-transform:uppercase;color:white">Onze</span>
+  </div>
+  <span style="font-family:'Manrope',sans-serif;font-size:12px;color:#7A7673">Campaña Social · Tanda 1 · Córdoba 2026</span>
+  <span style="font-family:'Manrope',sans-serif;font-size:12px;color:#7A7673">onzefutbol.github.io</span>
+</footer>
+
+
+<script>
+/* Reemplaza todos los logos placeholder por el path real del logo Onze (extraído de index.html) */
+document.addEventListener('DOMContentLoaded', function() {
+  /* Path data exacto del logo original (viewBox 0 0 28 28) */
+  var PATH_LEFT  = 'M 3.92 18.48 L 11.76 9.52 L 14 12.32 L 6.16 21.28 Z';
+  var PATH_RIGHT = 'M 24.08 9.52 L 16.24 18.48 L 14 15.68 L 21.84 6.72 Z';
+
+  document.querySelectorAll('svg').forEach(function(svg) {
+    var pls = svg.querySelectorAll('polyline');
+    if (pls.length !== 2) return;
+
+    /* Lee los colores originales (stroke → fill en el logo real) */
+    var c1 = pls[0].getAttribute('stroke');
+    var c2 = pls[1].getAttribute('stroke');
+
+    /* Actualiza el viewBox al del logo real */
+    svg.setAttribute('viewBox', '0 0 28 28');
+    svg.removeAttribute('fill');
+    pls[0].remove();
+    pls[1].remove();
+
+    /* Inserta los dos paths del logo real con los colores correspondientes */
+    [{ d: PATH_LEFT, fill: c1 }, { d: PATH_RIGHT, fill: c2 }].forEach(function(p) {
+      var el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      el.setAttribute('d', p.d);
+      el.setAttribute('fill', p.fill);
+      svg.appendChild(el);
+    });
+  });
+});
+</script>
+</body>
+</html>
