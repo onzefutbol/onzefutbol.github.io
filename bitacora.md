@@ -333,3 +333,19 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** el problema raíz era que el `doPost` viejo apilaba los valores en orden fijo, entonces cuando la forma del payload cambiaba (más campos, distinto orden), todo se corría. El nuevo lee los headers y mapea por nombre → cualquier campo del payload cae en la columna correcta sin importar el orden. Beneficio adicional: en el futuro se puede agregar/reordenar columnas del sheet sin tocar el script ni la landing.
 
 ---
+
+## [2026-07-29] Modales móvil compactos + flujo de éxito arreglado
+
+**Qué hice:**
+
+- **Modal más compacto en mobile:** bajé padding de 20 a 18/16, `h2` a 17px, `p` a 12px, `form-group` margin a 8px, `label` a 10px, `form-input` padding a 8/10 con font 13px, botones más chicos (11px padding, 12px font), close (✕) más chico y arriba. Además `align-items: flex-start` en el overlay para que el modal empiece pegado arriba en vez de centrado — así en pantallas cortas queda más natural con el scroll interno.
+- **Card de éxito compacta en mobile:** check circle de 56 → 48px, h3 de 20 → 17px, párrafo a 13px, padding 16 en vez de 20.
+- **Flujo de éxito nuevo:** en vez de mostrar el mensaje 4 segundos y re-abrir el formulario (que dejaba al usuario mirando otra vez el mismo form, confuso), ahora:
+  1. Se muestra el mensaje de éxito durante 2.5 segundos.
+  2. Auto-cierra el modal completo.
+  3. Reset del form en background 300ms después (para que la próxima apertura arranque limpia).
+- **Scroll del modal al top** al cambiar a la vista de éxito, así el usuario no queda mirando el pie del formulario cuando aparece el mensaje.
+
+**Por qué:** en pantallas de celular el modal ocupaba casi toda la altura y quedaba con scroll interno, y encima al terminar el flujo se re-mostraba el formulario vacío por 4 seg más — el usuario no entendía qué estaba pasando. El auto-cierre es más natural: enviaste, viste el "listo", el modal se va, seguís navegando la landing. Corta la fricción y no te "traba" con un formulario que reaparece.
+
+---
