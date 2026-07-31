@@ -387,3 +387,17 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** anticipar el lanzamiento de la app móvil sin distraer del CTA principal (elegir tipo de partido). Se eligió la opción sutil sobre alternativas más agresivas (banda superior, línea con CTA extra) para no competir con el flujo actual de conversión. Cuando falten 2-3 meses reales para el launch, se puede sumar un botón "avisame cuando salga" que reuse el newsletter del footer.
 
 ---
+
+## [2026-07-29] Badge más grande + contacto en footer
+
+**Qué hice:**
+
+- **Badge del hero más visible:** subí `font-size` de 11 a 14px, `padding` de 5/14 a 9/20, `margin-bottom` de 24 a 28px, y opacidad del borde de 0.4 a 0.5. Sigue siendo sutil pero ahora se ve de una en el hero sin buscarlo.
+- **Sección de contacto en el footer:** debajo del newsletter, un bloque nuevo con separador superior y estilo:
+  - Título "¿Comentarios o sugerencias?" en Space Grotesk 14px uppercase con letter-spacing (mismo estilo que los labels de sección).
+  - Frase con link `mailto:onze1918@gmail.com?subject=Contacto%20desde%20la%20web` que abre el cliente de mail con el asunto pre-cargado.
+- **Link "Contacto" en la fila inferior:** al lado de Instagram y TikTok, un tercer link `mailto:` para acceso rápido desde el sitio abajo.
+
+**Por qué:** el usuario pidió una vía de contacto para que la gente pueda mandar feedback/opiniones. Con `mailto:` no necesito ningún form ni backend — abre el cliente de mail nativo del usuario con destinatario y asunto ya puestos, listo para escribir. Doble ubicación (bloque destacado + link en la fila de redes) porque a algunos les llama más la atención un CTA con título, a otros les basta con un link al pie.
+
+---
