@@ -417,3 +417,25 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** el usuario priorizó la vía de contacto directa por sobre la lista de espera de novedades. Es coherente con el estado actual del producto: recibir feedback temprano vale más que sumar mails a una lista sin cadencia definida. La box con doble CTA (el mail visible + el botón "Escribinos") funciona tanto para quien quiere copiar el mail como para quien prefiere el 1-click al cliente nativo.
 
 ---
+
+## [2026-07-29] Formulario de comentarios en el footer (con envío por email)
+
+**Qué hice (landing):**
+
+- Reemplacé la box "Escribinos" (que era solo un CTA a `mailto:`) por un **formulario real** con:
+  - Input de email (obligatorio) para poder responder.
+  - Textarea de comentario (obligatorio, min-height 100px, resize vertical).
+  - Botón "Enviar comentario".
+- Al enviar, el form desaparece y se muestra un mensaje "¡Gracias! Recibimos tu comentario. Te respondemos pronto."
+- El botón se pone en estado "Enviando..." mientras dura el fetch para dar feedback inmediato.
+- Los inputs usan `font-size: 16px` inline para evitar el auto-zoom de iOS Safari (mismo criterio que los otros formularios).
+- Nueva función JS `handleContactSubmit()` que serializa `{tipo:'comentario', fecha, email, mensaje}` y postea al mismo `SHEETS_URL` que el resto de forms.
+
+**Pendiente (acción manual del usuario en Apps Script):**
+
+- Reemplazar la función `doPost` para que cuando `data.tipo === 'comentario'` no toque el sheet y en su lugar mande el mail a `onze1918@gmail.com` vía `MailApp.sendEmail` con `replyTo: data.email` — así responder desde Gmail va directo al que escribió.
+- Redesplegar como "Versión nueva".
+
+**Por qué:** un `mailto:` obliga a que el usuario tenga cliente de mail configurado (en móvil suele estar, en desktop muchos usan gmail web y les abre outlook por default = fricción). Un formulario embebido funciona en cualquier dispositivo sin depender de eso. Además, así todos los comentarios llegan por la misma vía (mail a onze1918) y se pueden triagar/responder en batch desde la bandeja de entrada.
+
+---
