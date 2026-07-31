@@ -401,3 +401,19 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** el usuario pidió una vía de contacto para que la gente pueda mandar feedback/opiniones. Con `mailto:` no necesito ningún form ni backend — abre el cliente de mail nativo del usuario con destinatario y asunto ya puestos, listo para escribir. Doble ubicación (bloque destacado + link en la fila de redes) porque a algunos les llama más la atención un CTA con título, a otros les basta con un link al pie.
 
 ---
+
+## [2026-07-29] Contacto en primer plano del footer (reemplaza newsletter)
+
+**Qué hice:**
+
+- **Saqué el newsletter completo del footer:** "Enterate primero" + subtítulo + form de suscripción quedaron eliminados.
+- **En su lugar puse una box destacada de contacto** con estilo card (fondo `oklch(0.19 0.01 80)`, borde sutil, border-radius 14px, padding 28/24):
+  - Título grande "¿Comentarios o sugerencias?" (Space Grotesk 28px, era el estilo del título anterior)
+  - Bajada explicativa: "Contanos qué te gusta, qué mejorarías o qué le agregarías a Onze. Leemos todos los mails y respondemos."
+  - Dirección de mail visible como link grande: `onze1918@gmail.com` (Space Grotesk 20px lima)
+  - Botón CTA grande lima "Escribinos" que abre el cliente de mail con asunto "Contacto desde la web" pre-cargado.
+- **Nav "Sumarme":** cambié el destino de `#suscribite` (que ya no tenía sentido) a `#caminos` — así el botón principal del nav lleva al bloque "Para jugadores / Para equipos" que sí es un CTA de conversión.
+
+**Por qué:** el usuario priorizó la vía de contacto directa por sobre la lista de espera de novedades. Es coherente con el estado actual del producto: recibir feedback temprano vale más que sumar mails a una lista sin cadencia definida. La box con doble CTA (el mail visible + el botón "Escribinos") funciona tanto para quien quiere copiar el mail como para quien prefiere el 1-click al cliente nativo.
+
+---
