@@ -379,3 +379,11 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** para cerrar el loop de valor: no alcanza con capturar datos, hay que conectar a las partes. El email es el canal de aviso (asincrónico, sin infra extra) y WhatsApp el canal de contacto directo (más rápido para arreglar un partido). La nota en el form aclara la expectativa desde antes de enviar.
 
 ---
+
+## [2026-07-29] Badge "App móvil próximamente" en el hero
+
+**Qué hice:** agregué un badge pill arriba del H1 del hero con el texto `📱 App móvil próximamente`. Estilo: background lima al 15% de opacidad, borde lima al 40%, texto lima, Manrope 11px 700 uppercase con letter-spacing 0.08em, padding 5px 14px, border-radius 999px, margin-bottom 24px.
+
+**Por qué:** anticipar el lanzamiento de la app móvil sin distraer del CTA principal (elegir tipo de partido). Se eligió la opción sutil sobre alternativas más agresivas (banda superior, línea con CTA extra) para no competir con el flujo actual de conversión. Cuando falten 2-3 meses reales para el launch, se puede sumar un botón "avisame cuando salga" que reuse el newsletter del footer.
+
+---
