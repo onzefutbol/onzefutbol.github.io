@@ -361,3 +361,21 @@ Separé branding de design system (en vez de un solo doc) porque son reutilizabl
 **Por qué:** el reporte del usuario ("necesito pellizcar y hace trabar la página") es el patrón textual del bug de auto-zoom + falta de dvh en iOS. Con estas 3 líneas queda 100% usable en cualquier celular moderno sin gestos manuales.
 
 ---
+
+## [2026-07-29] Campo WhatsApp + aviso de match por email
+
+**Qué hice (landing):**
+
+- Agregué campo obligatorio `telefono` (input type="tel", etiqueta "WhatsApp") en ambos formularios, al lado del email en un `form-row`.
+- Debajo del email/whatsapp, un texto chico gris explicando: "Te avisamos al mail cuando tengamos un match. Compartimos WhatsApp entre ambos para que arreglen directo."
+- Actualicé el copy de los mensajes de éxito para que digan explícitamente "revisá tu bandeja de entrada (y el spam, por las dudas)".
+
+**Pendiente (acción manual del usuario):**
+
+1. Ya se agregaron las columnas `TELEFONO` y `MATCHES_ENVIADOS` al sheet (hecho por el usuario).
+2. Falta reemplazar el Apps Script por la versión con lógica de matching + envío de emails (se pasa aparte en el chat).
+3. Redesplegar el Apps Script como "Versión nueva". Al ser la primera vez que usa `MailApp.sendEmail`, Google va a pedir un permiso adicional de "enviar correos electrónicos en tu nombre" — hay que aceptarlo.
+
+**Por qué:** para cerrar el loop de valor: no alcanza con capturar datos, hay que conectar a las partes. El email es el canal de aviso (asincrónico, sin infra extra) y WhatsApp el canal de contacto directo (más rápido para arreglar un partido). La nota en el form aclara la expectativa desde antes de enviar.
+
+---
